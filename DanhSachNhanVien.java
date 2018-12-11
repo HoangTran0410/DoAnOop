@@ -123,4 +123,21 @@ public class DanhSachNhanVien {
         }
         return result;
     }
+    
+    public int soLuong(String loaiNhanVien) {
+        NhanVien[] result;
+        if(loaiNhanVien.equalsIgnoreCase("san xuat")) {
+            result = timKiemNhanVienSanXuat();
+            return result.length;
+        }
+        if(loaiNhanVien.equalsIgnoreCase("kinh doanh")) {
+            result = timKiemNhanVienKinhDoanh();
+            return result.length;
+        }
+        if(loaiNhanVien.equalsIgnoreCase("quan ly")) {
+            result = timKiemNhanVienQuanLy();
+            return result.length;
+        }
+        return 0;
+    }
 }
