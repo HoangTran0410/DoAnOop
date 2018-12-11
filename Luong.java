@@ -3,11 +3,12 @@ package DoAnOop;
 public class Luong {
     private String maLuong;
     private double heSoLuong;
+    private double heSoPhuCap;
     static double[] hesoLuongList = {0, 2.34, 2.67, 3.0, 3.33, 3.66, 3.99, 4.32, 4.65};
     private final int LUONG_CO_BAN = 1400000;
 
     public Luong() {
-        heSoLuong = 2.34;
+        heSoLuong = hesoLuongList[0];
     }
     
     public Luong(String ml) {
@@ -15,9 +16,9 @@ public class Luong {
         heSoLuong = 2.34;
     }
     
-    public Luong(String ml, double hs) {
+    public Luong(String ml, double hsl, double hspc) {
         maLuong = ml;
-        heSoLuong = hs;
+        heSoLuong = hsl;
     }
 
     public String getMaLuong() {
