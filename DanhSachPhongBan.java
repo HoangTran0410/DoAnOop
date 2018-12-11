@@ -23,4 +23,7 @@ public class DanhSachPhongBan {
         dspb = themPhongBan(p, dspb);
     }
     
+    public void xoaPhongBan() {
+        
+    }    
 }
