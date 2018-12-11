@@ -1,4 +1,4 @@
-package doan_oop;
+package DoAnOop;
 
 public class HopDong {
     private String maHopDong;
