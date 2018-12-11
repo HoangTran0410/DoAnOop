@@ -1,9 +1,9 @@
 package DoAnOop;
 
 public class Luong {
-    
     private String maLuong;
     private double heSoLuong;
+    static double[] hesoLuongList = {0, 2.34, 2.67, 3.0, 3.33, 3.66, 3.99, 4.32, 4.65};
     private final int LUONG_CO_BAN = 1400000;
 
     public Luong() {
