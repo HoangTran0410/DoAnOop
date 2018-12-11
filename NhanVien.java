@@ -18,7 +18,6 @@ public class NhanVien {
         gioiTinh = true;
         ngaySinh = LocalDate.now();
     }
-
     public NhanVien(String maNhanVien, String maPB, String maL, String maHD,
             String ho, String ten, String sdt, String diachi,
             String gt, LocalDate ngaysinh) {
@@ -33,7 +32,6 @@ public class NhanVien {
         this.gioiTinh = gt.equalsIgnoreCase("nam");
         this.ngaySinh = ngaysinh;
     }
-
     public NhanVien(NhanVien nv) {
         this.maNhanVien = nv.maNhanVien;
         this.maPhongBan = nv.maPhongBan;
@@ -62,15 +60,8 @@ public class NhanVien {
         ten = scan.nextLine();
         System.out.print("Gioi tinh (nam/nu): ");
         gioiTinh = scan.nextLine().equalsIgnoreCase("nam");
-
-        System.out.print("Ngay Thang Nam sinh:\n ");
-        System.out.print("  Ngay sinh: ");
-        int n = scan.nextInt();
-        System.out.print("  Thang sinh: ");
-        int t = scan.nextInt();
-        System.out.print("  Nam sinh: ");
-        int nam = scan.nextInt();
-        ngaySinh = LocalDate.of(nam, t, n);
+        
+        nhapNgaySinh();
         scan.nextLine();
 
         System.out.print("So dien thoai: ");
@@ -78,7 +69,6 @@ public class NhanVien {
         System.out.print("Dia chi: ");
         diaChi = scan.nextLine();
     }
-
     public void xuatThongTin() {
         System.out.println("Ma nhan vien: " + maNhanVien);
         System.out.println("Ma phong ban: " + maPhongBan);
@@ -94,7 +84,6 @@ public class NhanVien {
     public String getMaNhanVien() {
         return maNhanVien;
     }
-
     public void setMaNhanVien(String maNhanVien) {
         this.maNhanVien = maNhanVien;
     }
@@ -102,7 +91,6 @@ public class NhanVien {
     public String getMaPhongBan() {
         return maPhongBan;
     }
-
     public void setMaPhongBan(String maPhongBan) {
         this.maPhongBan = maPhongBan;
     }
@@ -110,7 +98,6 @@ public class NhanVien {
     public String getMaLuong() {
         return maLuong;
     }
-
     public void setMaLuong(String maLuong) {
         this.maLuong = maLuong;
     }
@@ -118,7 +105,6 @@ public class NhanVien {
     public String getMaHopDong() {
         return maHopDong;
     }
-
     public void setMaHopDong(String maHopDong) {
         this.maHopDong = maHopDong;
     }
@@ -126,7 +112,6 @@ public class NhanVien {
     public String getHo() {
         return ho;
     }
-
     public void setHo(String ho) {
         this.ho = ho;
     }
@@ -134,7 +119,6 @@ public class NhanVien {
     public String getTen() {
         return ten;
     }
-
     public void setTen(String ten) {
         this.ten = ten;
     }
@@ -142,7 +126,6 @@ public class NhanVien {
     public String getSoDienThoai() {
         return soDienThoai;
     }
-
     public void setSoDienThoai(String soDienThoai) {
         this.soDienThoai = soDienThoai;
     }
@@ -150,7 +133,6 @@ public class NhanVien {
     public String getDiaChi() {
         return diaChi;
     }
-
     public void setDiaChi(String diaChi) {
         this.diaChi = diaChi;
     }
@@ -158,7 +140,6 @@ public class NhanVien {
     public String getGioiTinh() {
         return gioiTinh ? "nam" : "nu";
     }
-
     public void setGioiTinh(String gioiTinh) {
         this.gioiTinh = gioiTinh.equalsIgnoreCase("nam");
     }
@@ -166,8 +147,21 @@ public class NhanVien {
     public LocalDate getNgaySinh() {
         return ngaySinh;
     }
-
     public void setNgaySinh(LocalDate ngaySinh) {
         this.ngaySinh = ngaySinh;
+    }
+    public void setNgaySinh() {
+        nhapNgaySinh();
+    }
+    
+    public void nhapNgaySinh() {
+        System.out.print("Ngay Thang Nam sinh:\n ");
+        System.out.print("  Ngay sinh: ");
+        int n = scan.nextInt();
+        System.out.print("  Thang sinh: ");
+        int t = scan.nextInt();
+        System.out.print("  Nam sinh: ");
+        int nam = scan.nextInt();
+        ngaySinh = LocalDate.of(nam, t, n);
     }
 }
