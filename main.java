@@ -8,6 +8,10 @@ public class main {
         nv.nhapThongTin();
         
         nv.xuatThongTin();
+        
+        DanhSachNhanVien ds = new DanhSachNhanVien();
+        
+        DanhSachLuong dsl = new DanhSachLuong();
     }
     
 }
