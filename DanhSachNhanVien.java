@@ -13,11 +13,9 @@ public class DanhSachNhanVien {
     public DanhSachNhanVien() {
         dsnv = new NhanVien[0];
     }
-    
     public DanhSachNhanVien(NhanVien[] dsnv) {
         this.dsnv = dsnv;
     }
-
     public DanhSachNhanVien(DanhSachNhanVien ds) {
         this.dsnv = ds.dsnv.clone();
     }
