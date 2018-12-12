@@ -20,14 +20,15 @@ public class DanhSachNhanVien {
         this.dsnv = ds.dsnv.clone();
     }
 
-    public void luuDanhSach(String fileName) throws FileNotFoundException, IOException {
-        FileOutputStream file = new FileOutputStream(fileName, Boolean.TRUE);
-        DataOutputStream outStream = new DataOutputStream(file);
+    public void ghiFile(String tenFile) throws FileNotFoundException, IOException {
+        DataOutputStream fileOut = new DataOutputStream(new FileOutputStream(tenFile, Boolean.TRUE));
 
         for (NhanVien nv : dsnv) {
-            outStream.writeUTF(nv.getHo() + nv.getTen());
-            outStream.writeUTF(nv.getMaNhanVien());
+            nv.ghiFile(tenFile);
         }
+    }
+    public void docFile(String tenFile) throws FileNotFoundException {
+        
     }
 
     private NhanVien[] themNhanVien(NhanVien nv, NhanVien[] list) {

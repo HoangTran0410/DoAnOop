@@ -1,17 +1,15 @@
 
 package DoAnOop;
 
+import java.time.LocalDate;
+
 public class main {
 
     public static void main(String[] args) {
-        NhanVien nv = new NhanVienQuanLy();
-        nv.nhapThongTin();
+        LocalDate d = LocalDate.of(1999, 2, 12);
+        System.out.println(d);
         
-        nv.xuatThongTin();
-        
-        DanhSachNhanVien ds = new DanhSachNhanVien();
-        
-        DanhSachLuong dsl = new DanhSachLuong();
+//        System.out.println(LocalDate.parse(d));
     }
     
 }

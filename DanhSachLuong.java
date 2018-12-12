@@ -17,10 +17,10 @@ public class DanhSachLuong {
     }
     
     public Luong timKiemTheoMa(String maLuong) {
-        for(Luong l : danhSachLuong) {
-            if(l.getMaLuong().equals(maLuong))
-                return l;
-        }
+//        for(Luong l : danhSachLuong) {
+//            if(l.getMaLuong().equals(maLuong))
+//                return l;
+//        }
         return null;
     }
 }

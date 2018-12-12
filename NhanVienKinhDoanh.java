@@ -1,7 +1,5 @@
 package DoAnOop;
 
-import java.time.LocalDate;
-
 public class NhanVienKinhDoanh extends NhanVien {
 
     private int doanhSoToiThieu, doanhSoThucTe;
@@ -11,9 +9,9 @@ public class NhanVienKinhDoanh extends NhanVien {
     }
 
     public NhanVienKinhDoanh(String maNv, String maPB, String maL, String maHD,
-            String ho, String ten, String sdt, String diachi,
-            String gt, LocalDate ngaysinh, int doanhSoToiThieu, int doanhSoThucTe) {
-        super(maNv, maPB, maL, maHD, ho, ten, sdt, diachi, gt, ngaysinh);
+            String ho, String ten, String gt, String sdt, String diachi, 
+            int ngaysinh, int thangsinh, int namsinh, int doanhSoToiThieu, int doanhSoThucTe) {
+        super(maNv, maPB, maL, maHD, ho, ten, gt, sdt, diachi, ngaysinh, thangsinh, namsinh);
         this.doanhSoToiThieu = doanhSoToiThieu;
         this.doanhSoThucTe = doanhSoThucTe;
     }
@@ -25,8 +23,8 @@ public class NhanVienKinhDoanh extends NhanVien {
     }
     
     @Override
-    public void nhapThongTin() {
-        super.nhapThongTin();
+    public void nhap() {
+        super.nhap();
         System.out.println("Doanh so toi thieu: ");
         doanhSoToiThieu = scan.nextInt();
         System.out.println("Doanh so thuc te: ");
@@ -34,8 +32,8 @@ public class NhanVienKinhDoanh extends NhanVien {
     }
     
     @Override
-    public void xuatThongTin() {
-        super.xuatThongTin();
+    public void xuat() {
+        super.xuat();
         System.out.println("Doanh so toi thieu: " + doanhSoToiThieu);
         System.out.println("Doanh so thuc te: " + doanhSoThucTe);
     }

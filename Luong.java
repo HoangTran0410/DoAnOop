@@ -1,7 +1,7 @@
 package DoAnOop;
 
 public class Luong {
-    private String maLuong;
+    private String bacLuong;
     private double heSoLuong;
     private double heSoPhuCap;
     static double[] hesoLuongList = {0, 2.34, 2.67, 3.0, 3.33, 3.66, 3.99, 4.32, 4.65};
@@ -11,22 +11,14 @@ public class Luong {
         heSoLuong = hesoLuongList[0];
     }
     
-    public Luong(String ml) {
-        maLuong = ml;
+    public Luong(String bl) {
+        bacLuong = bl;
         heSoLuong = 2.34;
     }
     
-    public Luong(String ml, double hsl, double hspc) {
-        maLuong = ml;
+    public Luong(String bl, double hsl, double hspc) {
+        bacLuong = bl;
         heSoLuong = hsl;
-    }
-
-    public String getMaLuong() {
-        return maLuong;
-    }
-
-    public void setMaLuong(String maLuong) {
-        this.maLuong = maLuong;
     }
 
     public double getHeSoLuong() {

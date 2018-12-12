@@ -1,7 +1,5 @@
 package DoAnOop;
 
-import java.time.LocalDate;
-
 public class NhanVienQuanLy extends NhanVien {
 
     private String maChucVu;
@@ -13,8 +11,8 @@ public class NhanVienQuanLy extends NhanVien {
 
     public NhanVienQuanLy(String maNv, String maPB, String maL, String maHD,
             String ho, String ten, String sdt, String diachi,
-            String gt, LocalDate ngaysinh, String maCv, double hsChucVu) {
-        super(maNv, maPB, maL, maHD, ho, ten, sdt, diachi, gt, ngaysinh);
+            String gt, int ngaysinh, int thangsinh, int namsinh, String maCv, double hsChucVu) {
+        super(maNv, maPB, maL, maHD, ho, ten, sdt, diachi, gt, ngaysinh, thangsinh, namsinh);
         maChucVu = maCv;
         heSoPhuCapChucVu = hsChucVu;
     }
@@ -35,8 +33,8 @@ public class NhanVienQuanLy extends NhanVien {
     }
     
     @Override
-    public void xuatThongTin() {
-        super.xuatThongTin();
+    public void xuat() {
+        super.xuat();
         System.out.println("Ma chuc vu: " + maChucVu);
         System.out.println("He so phu cap chuc vu: " + heSoPhuCapChucVu);
     }

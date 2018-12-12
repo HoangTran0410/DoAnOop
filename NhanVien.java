@@ -1,7 +1,9 @@
 package DoAnOop;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.io.DataOutputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class NhanVien {
@@ -10,17 +12,18 @@ public class NhanVien {
     private String maNhanVien, maPhongBan, maLuong, maHopDong;
     private String ho, ten, soDienThoai, diaChi;
     private Boolean gioiTinh;
-    private LocalDate ngaySinh;
+    private int ngaySinh, thangSinh, namSinh;
 
     public NhanVien() {
         maNhanVien = maPhongBan = maLuong = maHopDong = "";
         ho = ten = soDienThoai = diaChi = "";
         gioiTinh = true;
-        ngaySinh = LocalDate.now();
+        ngaySinh = thangSinh = 1;
+        namSinh = 1999;
     }
     public NhanVien(String maNhanVien, String maPB, String maL, String maHD,
-            String ho, String ten, String sdt, String diachi,
-            String gt, LocalDate ngaysinh) {
+            String ho, String ten, String gt, String sdt, String diachi, 
+            int ngaysinh, int thangsinh, int namsinh) {
         this.maNhanVien = maNhanVien;
         this.maPhongBan = maPB;
         this.maLuong = maL;
@@ -31,6 +34,8 @@ public class NhanVien {
         this.diaChi = diachi;
         this.gioiTinh = gt.equalsIgnoreCase("nam");
         this.ngaySinh = ngaysinh;
+        this.thangSinh = thangsinh;
+        this.namSinh = namsinh;
     }
     public NhanVien(NhanVien nv) {
         this.maNhanVien = nv.maNhanVien;
@@ -43,9 +48,32 @@ public class NhanVien {
         this.diaChi = nv.diaChi;
         this.gioiTinh = nv.gioiTinh;
         this.ngaySinh = nv.ngaySinh;
+        this.thangSinh = nv.thangSinh;
+        this.namSinh = nv.namSinh;
     }
-
-    public void nhapThongTin() {
+    
+    public void ghiFile(String tenFile) throws FileNotFoundException,IOException {
+        DataOutputStream fileOut = new DataOutputStream(new FileOutputStream(tenFile, Boolean.TRUE));
+        
+        fileOut.writeUTF(maNhanVien);
+        fileOut.writeUTF(maPhongBan);
+        fileOut.writeUTF(maLuong);
+        fileOut.writeUTF(maHopDong);
+        fileOut.writeUTF(ho);
+        fileOut.writeUTF(ten);
+        fileOut.writeUTF(soDienThoai);
+        fileOut.writeUTF(diaChi);
+        fileOut.writeBoolean(gioiTinh);
+        fileOut.writeInt(ngaySinh);
+        fileOut.writeInt(thangSinh);
+        fileOut.writeInt(namSinh);
+    }
+    
+    public void nhap(){
+        this.nhapMa();
+        this.nhapThongTin();
+    }
+    public void nhapMa() {
         System.out.print("Ma nhan vien: ");
         maNhanVien = scan.nextLine();
         System.out.print("Ma phong ban: ");
@@ -54,6 +82,8 @@ public class NhanVien {
         maLuong = scan.nextLine();
         System.out.print("Ma hop dong: ");
         maHopDong = scan.nextLine();
+    }
+    public void nhapThongTin() {
         System.out.print("Ho: ");
         ho = scan.nextLine();
         System.out.print("Ten: ");
@@ -69,14 +99,31 @@ public class NhanVien {
         System.out.print("Dia chi: ");
         diaChi = scan.nextLine();
     }
-    public void xuatThongTin() {
+    public void nhapNgaySinh() {
+        System.out.print("Ngay Thang Nam sinh:\n ");
+        System.out.print("\tNgay sinh: ");
+        ngaySinh = scan.nextInt();
+        System.out.print("\tThang sinh: ");
+        thangSinh = scan.nextInt();
+        System.out.print("\tNam sinh: ");
+        namSinh = scan.nextInt();
+    }
+    
+    public void xuat() {
+        this.xuatMa();
+        this.xuatThongtin();
+    }
+    public void xuatMa() {
         System.out.println("Ma nhan vien: " + maNhanVien);
         System.out.println("Ma phong ban: " + maPhongBan);
         System.out.println("Ma luong: " + maLuong);
         System.out.println("Ma hop dong: " + maHopDong);
+    }
+    public void xuatThongtin() {
+        //.format(DateTimeFormatter.ofPattern("dd MM YY"))
         System.out.println("Ho va ten: " + ho + " " + ten);
         System.out.println("Gioi tinh: " + (gioiTinh ? "nam" : "nu"));
-        System.out.println("Ngay sinh: " + ngaySinh.format(DateTimeFormatter.ofPattern("dd MM YY")));
+        System.out.println("Ngay sinh: " + ngaySinh + "/" + thangSinh + "/" + namSinh);
         System.out.println("So dien thoai: " + soDienThoai);
         System.out.println("Dia chi: " + diaChi);
     }
@@ -144,24 +191,25 @@ public class NhanVien {
         this.gioiTinh = gioiTinh.equalsIgnoreCase("nam");
     }
 
-    public LocalDate getNgaySinh() {
+    public int getNgaySinh() {
         return ngaySinh;
     }
-    public void setNgaySinh(LocalDate ngaySinh) {
-        this.ngaySinh = ngaySinh;
-    }
-    public void setNgaySinh() {
-        nhapNgaySinh();
+    public void setNgaySinh(int ngaysinh) {
+        this.ngaySinh = ngaysinh;
     }
     
-    public void nhapNgaySinh() {
-        System.out.print("Ngay Thang Nam sinh:\n ");
-        System.out.print("  Ngay sinh: ");
-        int n = scan.nextInt();
-        System.out.print("  Thang sinh: ");
-        int t = scan.nextInt();
-        System.out.print("  Nam sinh: ");
-        int nam = scan.nextInt();
-        ngaySinh = LocalDate.of(nam, t, n);
+    public int getThangSinh() {
+        return thangSinh;
+    }
+    public void setThangSinh(int thangSinh) {
+        this.thangSinh = thangSinh;
+    }
+
+    public int getNamSinh() {
+        return namSinh;
+    }
+
+    public void setNamSinh(int namSinh) {
+        this.namSinh = namSinh;
     }
 }
