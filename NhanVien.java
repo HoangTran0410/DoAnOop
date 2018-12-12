@@ -141,7 +141,7 @@ public class NhanVien {
     public void xuatThongtin() {
         //.format(DateTimeFormatter.ofPattern("dd MM YY"))
         System.out.println("Ho va ten: " + ho + " " + ten);
-        System.out.println("Gioi tinh: " + (gioiTinh ? "nam" : "nu"));
+        System.out.println("Gioi tinh: " + (gioiTinh ? "Nam" : "Nu"));
         System.out.println("Ngay sinh: " + ngaySinh + "/" + thangSinh + "/" + namSinh);
         System.out.println("So dien thoai: " + soDienThoai);
         System.out.println("Dia chi: " + diaChi);

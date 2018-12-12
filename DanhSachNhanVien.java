@@ -108,7 +108,7 @@ public class DanhSachNhanVien {
     public void xuat() {
         // https://docs.oracle.com/javase/tutorial/java/data/numberformat.html
         
-        System.out.println("  MaNV           Ho va Ten            GioiTinh     NgaySinh     SoDienThoai  ");
+        System.out.println("   MaNV           Ho va Ten            GioiTinh     NgaySinh     SoDienThoai  ");
         System.out.println("----------------------------------------------------------------------------");
         for (NhanVien nv : dsnv) {
             // MaNV | HoTen | GioiTinh | NgaySinh | SoDienThoai
@@ -190,15 +190,15 @@ public class DanhSachNhanVien {
 
     public int soLuong(String loaiNhanVien) {
         NhanVien[] result;
-        if (loaiNhanVien.equalsIgnoreCase("san xuat")) {
+        if (loaiNhanVien.equalsIgnoreCase("sanxuat")) {
             result = timKiemNhanVienSanXuat();
             return result.length;
         }
-        if (loaiNhanVien.equalsIgnoreCase("kinh doanh")) {
+        if (loaiNhanVien.equalsIgnoreCase("kinhdoanh")) {
             result = timKiemNhanVienKinhDoanh();
             return result.length;
         }
-        if (loaiNhanVien.equalsIgnoreCase("quan ly")) {
+        if (loaiNhanVien.equalsIgnoreCase("quanly")) {
             result = timKiemNhanVienQuanLy();
             return result.length;
         }

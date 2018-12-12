@@ -13,9 +13,9 @@ public class DanhSachPhongBan {
         this.dspb = ds.dspb;
     }
     
-    private PhongBan[] themPhongBan(PhongBan nv, PhongBan[] list) {
+    private PhongBan[] themPhongBan(PhongBan pb, PhongBan[] list) {
         PhongBan[] temp = Arrays.copyOf(list, list.length + 1);
-        temp[temp.length - 1] = new PhongBan(nv);
+        temp[temp.length - 1] = pb;
         return temp;
     }
     
