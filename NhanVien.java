@@ -28,8 +28,8 @@ public class NhanVien {
         this.maPhongBan = maPB;
         this.maLuong = maL;
         this.maHopDong = maHD;
-        this.ho = ho;
-        this.ten = ten;
+        this.ho = MyString.toUpperCaseFirstLetter_AllWord(ho);
+        this.ten = MyString.toUpperCaseFirstLetter(ten);
         this.soDienThoai = sdt;
         this.diaChi = diachi;
         this.gioiTinh = gt.equalsIgnoreCase("nam");
@@ -67,7 +67,7 @@ public class NhanVien {
         fileOut.writeInt(thangSinh);
         fileOut.writeInt(namSinh);
     }
-    
+
     public void docFile(DataInputStream fileIn) throws IOException {
         maNhanVien = fileIn.readUTF();
         maPhongBan = fileIn.readUTF();
@@ -82,7 +82,7 @@ public class NhanVien {
         thangSinh = fileIn.readInt();
         namSinh = fileIn.readInt();
     }
-    
+
     public void nhap() {
         this.nhapMa();
         this.nhapThongTin();
@@ -101,9 +101,9 @@ public class NhanVien {
 
     public void nhapThongTin() {
         System.out.print("Ho: ");
-        ho = scan.nextLine();
+        ho = MyString.toUpperCaseFirstLetter_AllWord(scan.nextLine());
         System.out.print("Ten: ");
-        ten = scan.nextLine();
+        ten = MyString.toUpperCaseFirstLetter(scan.nextLine());
         System.out.print("Gioi tinh (nam/nu): ");
         gioiTinh = scan.nextLine().equalsIgnoreCase("nam");
 
@@ -212,7 +212,7 @@ public class NhanVien {
     }
 
     public String getGioiTinh() {
-        return gioiTinh ? "nam" : "nu";
+        return gioiTinh ? "Nam" : "Nu";
     }
 
     public void setGioiTinh(String gioiTinh) {
