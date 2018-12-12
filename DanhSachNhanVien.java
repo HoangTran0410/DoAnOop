@@ -34,36 +34,36 @@ public class DanhSachNhanVien {
         fileOut.close();
     }
 
+    // https://stackoverflow.com/questions/16945335/java-need-a-while-loop-to-reach-eof-i-e-while-eof-keep-parsing
     public void docFile(String tenFile) throws FileNotFoundException, IOException {
-        DataInputStream fileIn = new DataInputStream(new FileInputStream(tenFile));
-        // https://stackoverflow.com/questions/16945335/java-need-a-while-loop-to-reach-eof-i-e-while-eof-keep-parsing
-
-        while (fileIn.available() > 0) {
-            String loaiNhanVien = fileIn.readUTF();
-
-            if(loaiNhanVien.equalsIgnoreCase("quanly")) {
-                NhanVienQuanLy nv = new NhanVienQuanLy();
-                nv.docFile(fileIn);
-                themNhanVien(nv);
+        
+        try (DataInputStream fileIn = new DataInputStream(new FileInputStream(tenFile))) {
+            dsnv = new NhanVien[0];
+            while (fileIn.available() > 0) {
+                String loaiNhanVien = fileIn.readUTF();
                 
-            } else if(loaiNhanVien.equalsIgnoreCase("kinhdoanh")) {
-                NhanVienKinhDoanh nv = new NhanVienKinhDoanh();
-                nv.docFile(fileIn);
-                themNhanVien(nv);
-                
-            } else if(loaiNhanVien.equalsIgnoreCase("sanxuat")) {
-                NhanVienSanXuat nv = new NhanVienSanXuat();
-                nv.docFile(fileIn);
-                themNhanVien(nv);
+                if(loaiNhanVien.equalsIgnoreCase("quanly")) {
+                    NhanVienQuanLy nv = new NhanVienQuanLy();
+                    nv.docFile(fileIn);
+                    themNhanVien(nv);
+                    
+                } else if(loaiNhanVien.equalsIgnoreCase("kinhdoanh")) {
+                    NhanVienKinhDoanh nv = new NhanVienKinhDoanh();
+                    nv.docFile(fileIn);
+                    themNhanVien(nv);
+                    
+                } else if(loaiNhanVien.equalsIgnoreCase("sanxuat")) {
+                    NhanVienSanXuat nv = new NhanVienSanXuat();
+                    nv.docFile(fileIn);
+                    themNhanVien(nv);
+                }
             }
         }
-        
-        fileIn.close();
     }
 
     private NhanVien[] themNhanVien(NhanVien nv, NhanVien[] list) {
         NhanVien[] temp = Arrays.copyOf(list, list.length + 1);
-        temp[temp.length - 1] = new NhanVien(nv);
+        temp[temp.length - 1] = nv;
         return temp;
     }
 
@@ -101,7 +101,8 @@ public class DanhSachNhanVien {
     public String toString() {
         String result = "";
         for (NhanVien nv : dsnv) {
-            result += nv.toString() + "\n";
+//            result += nv.toString() + "\n";
+            result += nv.getTen() + " ";
         }
         return result;
     }

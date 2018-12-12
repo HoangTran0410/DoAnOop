@@ -1,15 +1,25 @@
-
 package DoAnOop;
 
-import java.time.LocalDate;
+import java.io.IOException;
 
 public class main {
 
-    public static void main(String[] args) {
-        LocalDate d = LocalDate.of(1999, 2, 12);
-        System.out.println(d);
-        
-//        System.out.println(LocalDate.parse(d));
+    public static void main(String[] args) throws IOException {
+        DanhSachNhanVien ds = new DanhSachNhanVien();
+
+//        for (int i = 0; i < 3; i++) {
+//            NhanVienKinhDoanh nv = new NhanVienKinhDoanh();
+//            nv.nhap();
+//
+//            ds.themNhanVien(nv);
+//            System.out.println("==============================");
+//        }
+//        
+//        ds.ghiFile("DanhSachNhanVien.txt");
+
+        ds = new DanhSachNhanVien();
+        ds.docFile("DanhSachNhanVien.txt");
+        System.out.println(ds.toString());
     }
-    
+
 }
