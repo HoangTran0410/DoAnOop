@@ -1,5 +1,9 @@
 package DoAnOop;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+
 public class NhanVienQuanLy extends NhanVien {
 
     private String maChucVu;
@@ -21,6 +25,21 @@ public class NhanVienQuanLy extends NhanVien {
         super(nv);
         this.maChucVu = nv.maChucVu;
         this.heSoPhuCapChucVu = nv.heSoPhuCapChucVu;
+    }
+    
+    @Override
+    public void ghiFile(DataOutputStream fileOut) throws IOException {
+        fileOut.writeUTF("quanly");
+        super.ghiFile(fileOut);
+        fileOut.writeUTF(maChucVu);
+        fileOut.writeDouble(heSoPhuCapChucVu);
+    }
+    
+    @Override
+    public void docFile(DataInputStream fileIn) throws IOException {
+        super.docFile(fileIn);
+        maChucVu = fileIn.readUTF();
+        heSoPhuCapChucVu = fileIn.readDouble();
     }
     
     @Override

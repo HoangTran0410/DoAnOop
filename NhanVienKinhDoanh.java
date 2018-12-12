@@ -1,5 +1,9 @@
 package DoAnOop;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+
 public class NhanVienKinhDoanh extends NhanVien {
 
     private int doanhSoToiThieu, doanhSoThucTe;
@@ -20,6 +24,21 @@ public class NhanVienKinhDoanh extends NhanVien {
         super(nv);
         this.doanhSoThucTe = nv.doanhSoThucTe;
         this.doanhSoToiThieu = nv.doanhSoToiThieu;
+    }
+    
+    @Override
+    public void ghiFile(DataOutputStream fileOut) throws IOException {
+        fileOut.writeUTF("kinhdoanh");
+        super.ghiFile(fileOut);
+        fileOut.writeInt(doanhSoToiThieu);
+        fileOut.writeInt(doanhSoThucTe);
+    }
+    
+    @Override
+    public void docFile(DataInputStream fileIn) throws IOException {
+        super.docFile(fileIn);
+        doanhSoToiThieu = fileIn.readInt();
+        doanhSoThucTe = fileIn.readInt();
     }
     
     @Override

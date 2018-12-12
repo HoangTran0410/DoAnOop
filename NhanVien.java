@@ -1,8 +1,7 @@
 package DoAnOop;
 
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -21,8 +20,9 @@ public class NhanVien {
         ngaySinh = thangSinh = 1;
         namSinh = 1999;
     }
+
     public NhanVien(String maNhanVien, String maPB, String maL, String maHD,
-            String ho, String ten, String gt, String sdt, String diachi, 
+            String ho, String ten, String gt, String sdt, String diachi,
             int ngaysinh, int thangsinh, int namsinh) {
         this.maNhanVien = maNhanVien;
         this.maPhongBan = maPB;
@@ -37,6 +37,7 @@ public class NhanVien {
         this.thangSinh = thangsinh;
         this.namSinh = namsinh;
     }
+
     public NhanVien(NhanVien nv) {
         this.maNhanVien = nv.maNhanVien;
         this.maPhongBan = nv.maPhongBan;
@@ -51,10 +52,8 @@ public class NhanVien {
         this.thangSinh = nv.thangSinh;
         this.namSinh = nv.namSinh;
     }
-    
-    public void ghiFile(String tenFile) throws FileNotFoundException,IOException {
-        DataOutputStream fileOut = new DataOutputStream(new FileOutputStream(tenFile, Boolean.TRUE));
-        
+
+    public void ghiFile(DataOutputStream fileOut) throws IOException {
         fileOut.writeUTF(maNhanVien);
         fileOut.writeUTF(maPhongBan);
         fileOut.writeUTF(maLuong);
@@ -69,10 +68,26 @@ public class NhanVien {
         fileOut.writeInt(namSinh);
     }
     
-    public void nhap(){
+    public void docFile(DataInputStream fileIn) throws IOException {
+        maNhanVien = fileIn.readUTF();
+        maPhongBan = fileIn.readUTF();
+        maLuong = fileIn.readUTF();
+        maHopDong = fileIn.readUTF();
+        ho = fileIn.readUTF();
+        ten = fileIn.readUTF();
+        soDienThoai = fileIn.readUTF();
+        diaChi = fileIn.readUTF();
+        gioiTinh = fileIn.readBoolean();
+        ngaySinh = fileIn.readInt();
+        thangSinh = fileIn.readInt();
+        namSinh = fileIn.readInt();
+    }
+    
+    public void nhap() {
         this.nhapMa();
         this.nhapThongTin();
     }
+
     public void nhapMa() {
         System.out.print("Ma nhan vien: ");
         maNhanVien = scan.nextLine();
@@ -83,6 +98,7 @@ public class NhanVien {
         System.out.print("Ma hop dong: ");
         maHopDong = scan.nextLine();
     }
+
     public void nhapThongTin() {
         System.out.print("Ho: ");
         ho = scan.nextLine();
@@ -90,7 +106,7 @@ public class NhanVien {
         ten = scan.nextLine();
         System.out.print("Gioi tinh (nam/nu): ");
         gioiTinh = scan.nextLine().equalsIgnoreCase("nam");
-        
+
         nhapNgaySinh();
         scan.nextLine();
 
@@ -99,6 +115,7 @@ public class NhanVien {
         System.out.print("Dia chi: ");
         diaChi = scan.nextLine();
     }
+
     public void nhapNgaySinh() {
         System.out.print("Ngay Thang Nam sinh:\n ");
         System.out.print("\tNgay sinh: ");
@@ -108,17 +125,19 @@ public class NhanVien {
         System.out.print("\tNam sinh: ");
         namSinh = scan.nextInt();
     }
-    
+
     public void xuat() {
         this.xuatMa();
         this.xuatThongtin();
     }
+
     public void xuatMa() {
         System.out.println("Ma nhan vien: " + maNhanVien);
         System.out.println("Ma phong ban: " + maPhongBan);
         System.out.println("Ma luong: " + maLuong);
         System.out.println("Ma hop dong: " + maHopDong);
     }
+
     public void xuatThongtin() {
         //.format(DateTimeFormatter.ofPattern("dd MM YY"))
         System.out.println("Ho va ten: " + ho + " " + ten);
@@ -131,6 +150,7 @@ public class NhanVien {
     public String getMaNhanVien() {
         return maNhanVien;
     }
+
     public void setMaNhanVien(String maNhanVien) {
         this.maNhanVien = maNhanVien;
     }
@@ -138,6 +158,7 @@ public class NhanVien {
     public String getMaPhongBan() {
         return maPhongBan;
     }
+
     public void setMaPhongBan(String maPhongBan) {
         this.maPhongBan = maPhongBan;
     }
@@ -145,6 +166,7 @@ public class NhanVien {
     public String getMaLuong() {
         return maLuong;
     }
+
     public void setMaLuong(String maLuong) {
         this.maLuong = maLuong;
     }
@@ -152,6 +174,7 @@ public class NhanVien {
     public String getMaHopDong() {
         return maHopDong;
     }
+
     public void setMaHopDong(String maHopDong) {
         this.maHopDong = maHopDong;
     }
@@ -159,6 +182,7 @@ public class NhanVien {
     public String getHo() {
         return ho;
     }
+
     public void setHo(String ho) {
         this.ho = ho;
     }
@@ -166,6 +190,7 @@ public class NhanVien {
     public String getTen() {
         return ten;
     }
+
     public void setTen(String ten) {
         this.ten = ten;
     }
@@ -173,6 +198,7 @@ public class NhanVien {
     public String getSoDienThoai() {
         return soDienThoai;
     }
+
     public void setSoDienThoai(String soDienThoai) {
         this.soDienThoai = soDienThoai;
     }
@@ -180,6 +206,7 @@ public class NhanVien {
     public String getDiaChi() {
         return diaChi;
     }
+
     public void setDiaChi(String diaChi) {
         this.diaChi = diaChi;
     }
@@ -187,6 +214,7 @@ public class NhanVien {
     public String getGioiTinh() {
         return gioiTinh ? "nam" : "nu";
     }
+
     public void setGioiTinh(String gioiTinh) {
         this.gioiTinh = gioiTinh.equalsIgnoreCase("nam");
     }
@@ -194,13 +222,15 @@ public class NhanVien {
     public int getNgaySinh() {
         return ngaySinh;
     }
+
     public void setNgaySinh(int ngaysinh) {
         this.ngaySinh = ngaysinh;
     }
-    
+
     public int getThangSinh() {
         return thangSinh;
     }
+
     public void setThangSinh(int thangSinh) {
         this.thangSinh = thangSinh;
     }

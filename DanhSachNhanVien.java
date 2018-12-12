@@ -1,9 +1,11 @@
-package DoAnOop ;
-import java.util.Arrays;
+package DoAnOop;
 
+import java.util.Arrays;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.FileNotFoundException;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class DanhSachNhanVien {
@@ -13,9 +15,11 @@ public class DanhSachNhanVien {
     public DanhSachNhanVien() {
         dsnv = new NhanVien[0];
     }
+
     public DanhSachNhanVien(NhanVien[] dsnv) {
         this.dsnv = dsnv;
     }
+
     public DanhSachNhanVien(DanhSachNhanVien ds) {
         this.dsnv = ds.dsnv.clone();
     }
@@ -24,11 +28,37 @@ public class DanhSachNhanVien {
         DataOutputStream fileOut = new DataOutputStream(new FileOutputStream(tenFile, Boolean.TRUE));
 
         for (NhanVien nv : dsnv) {
-            nv.ghiFile(tenFile);
+            nv.ghiFile(fileOut);
         }
+
+        fileOut.close();
     }
-    public void docFile(String tenFile) throws FileNotFoundException {
+
+    public void docFile(String tenFile) throws FileNotFoundException, IOException {
+        DataInputStream fileIn = new DataInputStream(new FileInputStream(tenFile));
+        // https://stackoverflow.com/questions/16945335/java-need-a-while-loop-to-reach-eof-i-e-while-eof-keep-parsing
+
+        while (fileIn.available() > 0) {
+            String loaiNhanVien = fileIn.readUTF();
+
+            if(loaiNhanVien.equalsIgnoreCase("quanly")) {
+                NhanVienQuanLy nv = new NhanVienQuanLy();
+                nv.docFile(fileIn);
+                themNhanVien(nv);
+                
+            } else if(loaiNhanVien.equalsIgnoreCase("kinhdoanh")) {
+                NhanVienKinhDoanh nv = new NhanVienKinhDoanh();
+                nv.docFile(fileIn);
+                themNhanVien(nv);
+                
+            } else if(loaiNhanVien.equalsIgnoreCase("sanxuat")) {
+                NhanVienSanXuat nv = new NhanVienSanXuat();
+                nv.docFile(fileIn);
+                themNhanVien(nv);
+            }
+        }
         
+        fileIn.close();
     }
 
     private NhanVien[] themNhanVien(NhanVien nv, NhanVien[] list) {
@@ -36,21 +66,23 @@ public class DanhSachNhanVien {
         temp[temp.length - 1] = new NhanVien(nv);
         return temp;
     }
-    
+
     public void themNhanVien() {
         NhanVien temp = new NhanVien();
-        temp.nhapThongTin();
+        temp.nhap();
         themNhanVien(temp);
     }
+
     public void themNhanVien(NhanVien nv) {
         dsnv = themNhanVien(nv, dsnv);
     }
-    
+
     public void xoaNhanVienTaiViTri(int index) {
         for (int i = index + 1; i < dsnv.length; i++) {
             dsnv[i - 1] = dsnv[i];
         }
     }
+
     public void xoaNhanVienTheoMa(String ma) {
         int c, i;
         for (c = i = 0; i < dsnv.length; i++) {
@@ -60,7 +92,7 @@ public class DanhSachNhanVien {
             }
         }
         // neu tim thay va xoa duoc, thi phai thu nho chieu dai mang lai = c
-        if(c < dsnv.length - 1) {
+        if (c < dsnv.length - 1) {
             dsnv = Arrays.copyOf(dsnv, c);
         }
     }
@@ -82,6 +114,7 @@ public class DanhSachNhanVien {
         }
         return null;
     }
+
     public NhanVien[] timKiemTheoTen(String ten) {
         NhanVien[] result = new NhanVien[0];
 
@@ -92,6 +125,7 @@ public class DanhSachNhanVien {
         }
         return result;
     }
+
     public NhanVien[] timKiemTheoPhongBan(String maPB) {
         NhanVien[] result = new NhanVien[0];
 
@@ -102,6 +136,7 @@ public class DanhSachNhanVien {
         }
         return result;
     }
+
     public NhanVien[] timKiemNhanVienSanXuat() {
         NhanVien[] result = new NhanVien[0];
 
@@ -113,6 +148,7 @@ public class DanhSachNhanVien {
         }
         return result;
     }
+
     public NhanVien[] timKiemNhanVienKinhDoanh() {
         NhanVien[] result = new NhanVien[0];
 
@@ -123,6 +159,7 @@ public class DanhSachNhanVien {
         }
         return result;
     }
+
     public NhanVien[] timKiemNhanVienQuanLy() {
         NhanVien[] result = new NhanVien[0];
 
@@ -133,18 +170,18 @@ public class DanhSachNhanVien {
         }
         return result;
     }
-    
+
     public int soLuong(String loaiNhanVien) {
         NhanVien[] result;
-        if(loaiNhanVien.equalsIgnoreCase("san xuat")) {
+        if (loaiNhanVien.equalsIgnoreCase("san xuat")) {
             result = timKiemNhanVienSanXuat();
             return result.length;
         }
-        if(loaiNhanVien.equalsIgnoreCase("kinh doanh")) {
+        if (loaiNhanVien.equalsIgnoreCase("kinh doanh")) {
             result = timKiemNhanVienKinhDoanh();
             return result.length;
         }
-        if(loaiNhanVien.equalsIgnoreCase("quan ly")) {
+        if (loaiNhanVien.equalsIgnoreCase("quan ly")) {
             result = timKiemNhanVienQuanLy();
             return result.length;
         }
