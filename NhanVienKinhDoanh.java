@@ -13,7 +13,7 @@ public class NhanVienKinhDoanh extends NhanVien {
     }
 
     public NhanVienKinhDoanh(String maNv, String maPB, String maL, String maHD,
-            String ho, String ten, String gt, String sdt, String diachi, 
+            String ho, String ten, String gt, String sdt, String diachi,
             int ngaysinh, int thangsinh, int namsinh, int doanhSoToiThieu, int doanhSoThucTe) {
         super(maNv, maPB, maL, maHD, ho, ten, gt, sdt, diachi, ngaysinh, thangsinh, namsinh);
         this.doanhSoToiThieu = doanhSoToiThieu;
@@ -25,7 +25,7 @@ public class NhanVienKinhDoanh extends NhanVien {
         this.doanhSoThucTe = nv.doanhSoThucTe;
         this.doanhSoToiThieu = nv.doanhSoToiThieu;
     }
-    
+
     @Override
     public void ghiFile(DataOutputStream fileOut) throws IOException {
         fileOut.writeUTF("kinhdoanh");
@@ -33,14 +33,14 @@ public class NhanVienKinhDoanh extends NhanVien {
         fileOut.writeInt(doanhSoToiThieu);
         fileOut.writeInt(doanhSoThucTe);
     }
-    
+
     @Override
     public void docFile(DataInputStream fileIn) throws IOException {
         super.docFile(fileIn);
         doanhSoToiThieu = fileIn.readInt();
         doanhSoThucTe = fileIn.readInt();
     }
-    
+
     @Override
     public void nhap() {
         super.nhap();
@@ -49,7 +49,7 @@ public class NhanVienKinhDoanh extends NhanVien {
         System.out.print("Doanh so thuc te: ");
         doanhSoThucTe = scan.nextInt();
     }
-    
+
     @Override
     public void xuat() {
         super.xuat();

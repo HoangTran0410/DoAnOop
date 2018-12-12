@@ -26,7 +26,7 @@ public class NhanVienQuanLy extends NhanVien {
         this.maChucVu = nv.maChucVu;
         this.heSoPhuCapChucVu = nv.heSoPhuCapChucVu;
     }
-    
+
     @Override
     public void ghiFile(DataOutputStream fileOut) throws IOException {
         fileOut.writeUTF("quanly");
@@ -34,14 +34,14 @@ public class NhanVienQuanLy extends NhanVien {
         fileOut.writeUTF(maChucVu);
         fileOut.writeDouble(heSoPhuCapChucVu);
     }
-    
+
     @Override
     public void docFile(DataInputStream fileIn) throws IOException {
         super.docFile(fileIn);
         maChucVu = fileIn.readUTF();
         heSoPhuCapChucVu = fileIn.readDouble();
     }
-    
+
     @Override
     public void nhapThongTin() {
         super.nhapThongTin();
@@ -50,7 +50,7 @@ public class NhanVienQuanLy extends NhanVien {
         System.out.print("He so phu cap chuc vu: ");
         heSoPhuCapChucVu = scan.nextDouble();
     }
-    
+
     @Override
     public void xuat() {
         super.xuat();
