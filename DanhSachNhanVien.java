@@ -24,8 +24,16 @@ public class DanhSachNhanVien {
         this.dsnv = ds.dsnv.clone();
     }
 
-    public void ghiFile(String tenFile) throws FileNotFoundException, IOException {
-        DataOutputStream fileOut = new DataOutputStream(new FileOutputStream(tenFile, Boolean.TRUE));
+    public void ghiThem(String tenFile) throws FileNotFoundException, IOException {
+        ghiFile(tenFile, true);
+    }
+
+    public void ghiDe(String tenFile) throws FileNotFoundException, IOException {
+        ghiFile(tenFile, false);
+    }
+
+    public void ghiFile(String tenFile, Boolean ghiThem) throws FileNotFoundException, IOException {
+        DataOutputStream fileOut = new DataOutputStream(new FileOutputStream(tenFile, ghiThem));
 
         for (NhanVien nv : dsnv) {
             nv.ghiFile(fileOut);
@@ -36,23 +44,23 @@ public class DanhSachNhanVien {
 
     // https://stackoverflow.com/questions/16945335/java-need-a-while-loop-to-reach-eof-i-e-while-eof-keep-parsing
     public void docFile(String tenFile) throws FileNotFoundException, IOException {
-        
+
         try (DataInputStream fileIn = new DataInputStream(new FileInputStream(tenFile))) {
             dsnv = new NhanVien[0];
             while (fileIn.available() > 0) {
                 String loaiNhanVien = fileIn.readUTF();
-                
-                if(loaiNhanVien.equalsIgnoreCase("quanly")) {
+
+                if (loaiNhanVien.equalsIgnoreCase("quanly")) {
                     NhanVienQuanLy nv = new NhanVienQuanLy();
                     nv.docFile(fileIn);
                     themNhanVien(nv);
-                    
-                } else if(loaiNhanVien.equalsIgnoreCase("kinhdoanh")) {
+
+                } else if (loaiNhanVien.equalsIgnoreCase("kinhdoanh")) {
                     NhanVienKinhDoanh nv = new NhanVienKinhDoanh();
                     nv.docFile(fileIn);
                     themNhanVien(nv);
-                    
-                } else if(loaiNhanVien.equalsIgnoreCase("sanxuat")) {
+
+                } else if (loaiNhanVien.equalsIgnoreCase("sanxuat")) {
                     NhanVienSanXuat nv = new NhanVienSanXuat();
                     nv.docFile(fileIn);
                     themNhanVien(nv);
@@ -97,14 +105,22 @@ public class DanhSachNhanVien {
         }
     }
 
-    @Override
-    public String toString() {
-        String result = "";
+    public void xuat() {
+        // https://docs.oracle.com/javase/tutorial/java/data/numberformat.html
+        
+        System.out.println("  MaNV           Ho va Ten            GioiTinh     NgaySinh     SoDienThoai  ");
+        System.out.println("----------------------------------------------------------------------------");
         for (NhanVien nv : dsnv) {
-//            result += nv.toString() + "\n";
-            result += nv.getTen() + " ";
+            // MaNV | HoTen | GioiTinh | NgaySinh | SoDienThoai
+            System.out.format("| %-6s| %-15s %-10s| %10s| %11s| %12s |\n",
+                    nv.getMaNhanVien(),
+                    nv.getHo(), 
+                    nv.getTen(),
+                    nv.getGioiTinh(),
+                    nv.getNgaySinh() + "/" + nv.getThangSinh() + "/" + nv.getNamSinh(),
+                    nv.getSoDienThoai());
         }
-        return result;
+        System.out.println("----------------------------------------------------------------------------");
     }
 
     public NhanVien timKiemTheoMa(String maNv) {
