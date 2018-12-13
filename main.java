@@ -25,6 +25,8 @@ public class main {
 
         ds.docFile("DanhSachNhanVien.txt");
         ds.xuat();
+        
+        ds.timKiemNhanVienSanXuat()[0].xuat();
 
 //        for(NhanVien x : ds.timKiemNhanVienKinhDoanh() )
 //            x.xuat();

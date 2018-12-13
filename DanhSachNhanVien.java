@@ -8,7 +8,7 @@ import java.io.FileOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class DanhSachNhanVien {
+public class DanhSachNhanVien implements DanhSach, File {
 
     private NhanVien[] dsnv;
 
@@ -24,14 +24,6 @@ public class DanhSachNhanVien {
         this.dsnv = ds.dsnv.clone();
     }
 
-    public void ghiThem(String tenFile) throws FileNotFoundException, IOException {
-        ghiFile(tenFile, true);
-    }
-
-    public void ghiDe(String tenFile) throws FileNotFoundException, IOException {
-        ghiFile(tenFile, false);
-    }
-
     public void ghiFile(String tenFile, Boolean ghiThem) throws FileNotFoundException, IOException {
         DataOutputStream fileOut = new DataOutputStream(new FileOutputStream(tenFile, ghiThem));
 
@@ -42,7 +34,18 @@ public class DanhSachNhanVien {
         fileOut.close();
     }
 
+    @Override
+    public void ghiThem(String tenFile) throws FileNotFoundException, IOException {
+        ghiFile(tenFile, true);
+    }
+
+    @Override
+    public void ghiDe(String tenFile) throws FileNotFoundException, IOException {
+        ghiFile(tenFile, false);
+    }
+
     // https://stackoverflow.com/questions/16945335/java-need-a-while-loop-to-reach-eof-i-e-while-eof-keep-parsing
+    @Override
     public void docFile(String tenFile) throws FileNotFoundException, IOException {
 
         try (DataInputStream fileIn = new DataInputStream(new FileInputStream(tenFile))) {
@@ -53,17 +56,17 @@ public class DanhSachNhanVien {
                 if (loaiNhanVien.equalsIgnoreCase("quanly")) {
                     NhanVienQuanLy nv = new NhanVienQuanLy();
                     nv.docFile(fileIn);
-                    themNhanVien(nv);
+                    them(nv);
 
                 } else if (loaiNhanVien.equalsIgnoreCase("kinhdoanh")) {
                     NhanVienKinhDoanh nv = new NhanVienKinhDoanh();
                     nv.docFile(fileIn);
-                    themNhanVien(nv);
+                    them(nv);
 
                 } else if (loaiNhanVien.equalsIgnoreCase("sanxuat")) {
                     NhanVienSanXuat nv = new NhanVienSanXuat();
                     nv.docFile(fileIn);
-                    themNhanVien(nv);
+                    them(nv);
                 }
             }
         }
@@ -75,23 +78,26 @@ public class DanhSachNhanVien {
         return temp;
     }
 
-    public void themNhanVien() {
-        NhanVien temp = new NhanVien();
-        temp.nhap();
-        themNhanVien(temp);
-    }
-
-    public void themNhanVien(NhanVien nv) {
+    public void them(NhanVien nv) {
         dsnv = themNhanVien(nv, dsnv);
     }
 
-    public void xoaNhanVienTaiViTri(int index) {
+    @Override
+    public void them() {
+        NhanVien temp = new NhanVien();
+        temp.nhap();
+        them(temp);
+    }
+
+    @Override
+    public void xoaTaiViTri(int index) {
         for (int i = index + 1; i < dsnv.length; i++) {
             dsnv[i - 1] = dsnv[i];
         }
     }
 
-    public void xoaNhanVienTheoMa(String ma) {
+    @Override
+    public void xoaTheoMa(String ma) {
         int c, i;
         for (c = i = 0; i < dsnv.length; i++) {
             if (!dsnv[i].getMaNhanVien().equals(ma)) {
@@ -105,16 +111,26 @@ public class DanhSachNhanVien {
         }
     }
 
+    @Override
+    public void suaTheoMa(String ma) {
+        for (NhanVien nv : dsnv) {
+            if (nv.getMaNhanVien().toLowerCase().contains(ma.toLowerCase())) {
+                nv.nhap();
+            }
+        }
+    }
+
+    @Override
     public void xuat() {
         // https://docs.oracle.com/javase/tutorial/java/data/numberformat.html
-        
+
         System.out.println("   MaNV           Ho va Ten            GioiTinh     NgaySinh     SoDienThoai  ");
         System.out.println("----------------------------------------------------------------------------");
         for (NhanVien nv : dsnv) {
             // MaNV | HoTen | GioiTinh | NgaySinh | SoDienThoai
             System.out.format("| %-6s| %-15s %-10s| %10s| %11s| %12s |\n",
                     nv.getMaNhanVien(),
-                    nv.getHo(), 
+                    nv.getHo(),
                     nv.getTen(),
                     nv.getGioiTinh(),
                     nv.getNgaySinh() + "/" + nv.getThangSinh() + "/" + nv.getNamSinh(),
@@ -123,9 +139,9 @@ public class DanhSachNhanVien {
         System.out.println("----------------------------------------------------------------------------");
     }
 
-    public NhanVien timKiemTheoMa(String maNv) {
+    public NhanVien timKiemTheoMa(String ma) {
         for (NhanVien nv : dsnv) {
-            if (nv.getMaNhanVien().toLowerCase().contains(maNv.toLowerCase())) {
+            if (nv.getMaNhanVien().toLowerCase().contains(ma.toLowerCase())) {
                 return nv;
             }
         }
