@@ -22,10 +22,9 @@ public class main {
 //        System.out.println("==============================");
 //
 //        ds.ghiDe("DanhSachNhanVien.txt");
-
         ds.docFile("DanhSachNhanVien.txt");
         ds.xuat();
-        
+
         ds.timKiemNhanVienSanXuat()[0].xuat();
 
 //        for(NhanVien x : ds.timKiemNhanVienKinhDoanh() )

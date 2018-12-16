@@ -24,14 +24,13 @@ public class DanhSachNhanVien implements DanhSach, File {
         this.dsnv = ds.dsnv.clone();
     }
 
+    @Override
     public void ghiFile(String tenFile, Boolean ghiThem) throws FileNotFoundException, IOException {
-        DataOutputStream fileOut = new DataOutputStream(new FileOutputStream(tenFile, ghiThem));
-
-        for (NhanVien nv : dsnv) {
-            nv.ghiFile(fileOut);
+        try (DataOutputStream fileOut = new DataOutputStream(new FileOutputStream(tenFile, ghiThem))) {
+            for (NhanVien nv : dsnv) {
+                nv.ghiFile(fileOut);
+            }
         }
-
-        fileOut.close();
     }
 
     @Override
@@ -47,7 +46,6 @@ public class DanhSachNhanVien implements DanhSach, File {
     // https://stackoverflow.com/questions/16945335/java-need-a-while-loop-to-reach-eof-i-e-while-eof-keep-parsing
     @Override
     public void docFile(String tenFile) throws FileNotFoundException, IOException {
-
         try (DataInputStream fileIn = new DataInputStream(new FileInputStream(tenFile))) {
             dsnv = new NhanVien[0];
             while (fileIn.available() > 0) {
@@ -91,8 +89,11 @@ public class DanhSachNhanVien implements DanhSach, File {
 
     @Override
     public void xoaTaiViTri(int index) {
-        for (int i = index + 1; i < dsnv.length; i++) {
-            dsnv[i - 1] = dsnv[i];
+        if (index < dsnv.length) {
+            for (int i = index + 1; i < dsnv.length; i++) {
+                dsnv[i - 1] = dsnv[i];
+            }
+            dsnv = Arrays.copyOf(dsnv, dsnv.length - 1);
         }
     }
 

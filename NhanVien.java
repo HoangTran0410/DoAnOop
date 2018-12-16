@@ -5,7 +5,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class NhanVien {
+public class NhanVien implements NhapXuat {
 
     Scanner scan = new Scanner(System.in);
     private String maNhanVien, maPhongBan, maLuong, maHopDong;
@@ -83,6 +83,7 @@ public class NhanVien {
         namSinh = fileIn.readInt();
     }
 
+    @Override
     public void nhap() {
         this.nhapMa();
         this.nhapThongTin();
@@ -126,6 +127,7 @@ public class NhanVien {
         namSinh = scan.nextInt();
     }
 
+    @Override
     public void xuat() {
         this.xuatMa();
         this.xuatThongtin();
