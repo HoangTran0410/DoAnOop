@@ -107,7 +107,7 @@ public class DanhSachNhanVien implements DanhSach, File {
             }
         }
         // neu tim thay va xoa duoc, thi phai thu nho chieu dai mang lai = c
-        if (c < dsnv.length - 1) {
+        if (c < dsnv.length) {
             dsnv = Arrays.copyOf(dsnv, c);
         }
     }

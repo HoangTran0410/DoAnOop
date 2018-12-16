@@ -88,7 +88,7 @@ public class DanhSachPhongBan implements DanhSach, File {
             }
         }
         // neu tim thay va xoa duoc, thi phai thu nho chieu dai mang lai = c
-        if (c < dspb.length - 1) {
+        if (c < dspb.length) {
             dspb = Arrays.copyOf(dspb, c);
         }
     }
@@ -104,7 +104,17 @@ public class DanhSachPhongBan implements DanhSach, File {
 
     @Override
     public void xuat() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("   MaPB     Ten Phong Ban     SDT Phong Ban          DiaChi");
+        System.out.println("--------------------------------------------------------------------");
+        for (PhongBan pb : dspb) {
+            // MaNV | HoTen | GioiTinh | NgaySinh | SoDienThoai
+            System.out.format("| %-6s| %-17s| %15s | %20s |\n",
+                    pb.getMaPhongBan(),
+                    pb.getTenPhongBan(),
+                    pb.getSdtPhongBan(),
+                    pb.getDiaChi());
+        }
+        System.out.println("--------------------------------------------------------------------");
     }
 
     public int soLuong() {

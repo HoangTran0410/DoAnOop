@@ -1,32 +1,22 @@
 package DoAnOop;
 
 public class Luong {
-    private String bacLuong;
-    private double heSoLuong;
+    private int bacLuong;
     private double heSoPhuCap;
     static double[] hesoLuongList = {0, 2.34, 2.67, 3.0, 3.33, 3.66, 3.99, 4.32, 4.65};
     private final int LUONG_CO_BAN = 1400000;
 
     public Luong() {
-        heSoLuong = hesoLuongList[0];
+        bacLuong = 0;
     }
     
-    public Luong(String bl) {
+    public Luong(int bl) {
         bacLuong = bl;
-        heSoLuong = 2.34;
     }
     
-    public Luong(String bl, double hsl, double hspc) {
+    public Luong(int bl, double hspc) {
         bacLuong = bl;
-        heSoLuong = hsl;
-    }
-
-    public double getHeSoLuong() {
-        return heSoLuong;
-    }
-
-    public void setHeSoLuong(double heSoLuong) {
-        this.heSoLuong = heSoLuong;
+        heSoPhuCap = hspc;
     }
 
     public int thamNienLamViec() {
