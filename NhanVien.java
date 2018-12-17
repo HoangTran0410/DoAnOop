@@ -3,6 +3,7 @@ package DoAnOop;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class NhanVien implements NhapXuat {
@@ -90,14 +91,25 @@ public class NhanVien implements NhapXuat {
     }
 
     public void nhapMa() {
-        System.out.print("Ma nhan vien: ");
-        maNhanVien = scan.nextLine();
-        System.out.print("Ma phong ban: ");
-        maPhongBan = scan.nextLine();
-        System.out.print("Ma luong : ");
-        maLuong = scan.nextLine();
-        System.out.print("Ma hop dong: ");
-        maHopDong = scan.nextLine();
+        do {
+            System.out.print("Ma nhan vien: ");
+            maNhanVien = scan.nextLine();
+        } while (maNhanVien.trim().equals(""));
+
+        do {
+            System.out.print("Ma phong ban: ");
+            maPhongBan = scan.nextLine();
+        } while (maPhongBan.trim().equals(""));
+
+        do {
+            System.out.print("Ma luong: ");
+            maLuong = scan.nextLine();
+        } while (maLuong.trim().equals(""));
+
+        do {
+            System.out.print("Ma hop dong: ");
+            maHopDong = scan.nextLine();
+        } while (maHopDong.trim().equals(""));
     }
 
     public void nhapThongTin() {
@@ -110,12 +122,17 @@ public class NhanVien implements NhapXuat {
             ten = MyString.toUpperCaseFirstLetter(scan.nextLine());
         } while (ten.trim().equals(""));
 
-        System.out.print("Gioi tinh (nam/nu): ");
-        gioiTinh = scan.nextLine().equalsIgnoreCase("nam");
+        String gtNhap;
+        do {
+            System.out.print("Gioi tinh (nam/nu): ");
+            gtNhap = scan.nextLine();
+            gioiTinh = gtNhap.equalsIgnoreCase("nam");
+
+        } while (!CheckValidation.isSexValid(gtNhap));
 
         nhapNgaySinh();
         scan.nextLine();
-        
+
         do {
             System.out.print("So dien thoai (10 chu so): ");
             soDienThoai = scan.nextLine();
@@ -132,17 +149,25 @@ public class NhanVien implements NhapXuat {
     public void nhapNgaySinh() {
         Boolean validation;
         do {
-            System.out.print("Ngay-Thang-Nam sinh:\n ");
-            System.out.print("\tNgay sinh: ");
-            ngaySinh = scan.nextInt();
-            System.out.print("\tThang sinh: ");
-            thangSinh = scan.nextInt();
-            System.out.print("\tNam sinh: ");
-            namSinh = scan.nextInt();
+            validation = true;
+            try {
+                System.out.print("Ngay-Thang-Nam sinh:\n ");
+                System.out.print("\tNgay sinh: ");
+                ngaySinh = scan.nextInt();
+                System.out.print("\tThang sinh: ");
+                thangSinh = scan.nextInt();
+                System.out.print("\tNam sinh: ");
+                namSinh = scan.nextInt();
 
-            validation = CheckValidation.isDateValid(CheckValidation.formatDate_NumToString(ngaySinh, thangSinh, namSinh));
-            if (!validation) {
-                System.err.println("Ngay-thang-nam khong hop le! Vui long nhap lai.");
+                validation = CheckValidation.isDateValid(CheckValidation.formatDate_NumToString(ngaySinh, thangSinh, namSinh));
+                if (!validation) {
+                    System.err.println("Ngay-thang-nam khong hop le! Vui long nhap lai.");
+                }
+            } catch (InputMismatchException e) {
+                scan.nextLine();
+                System.err.println("Gia tri phai la so!");
+                scan.nextLine();
+                validation = false;
             }
 
         } while (!validation);

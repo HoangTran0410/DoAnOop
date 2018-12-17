@@ -138,6 +138,26 @@ public class Menu {
                         }
                         break;
                     case 8:
+                        System.out.println("----------------- Sua Nhan Vien -----------------");
+                        System.out.print("Sua theo (1:ten/ 2:ma nhan vien): ");
+                        int loaisua = scan.nextInt();
+                        scan.nextLine();
+                        switch(loaisua) {
+                            case 1: 
+                                System.out.print("Nhap ten nhan vien muon sua: ");
+                                String ten = scan.nextLine();
+                                
+                                DanhSachNhanVien dsnv_ten = new DanhSachNhanVien(dsnv.timKiemTheoTen(ten));
+                                dsnv_ten.xuat();
+                                
+                            case 2: 
+                                if(loaisua != 1) dsnv.xuat();
+                                System.out.print("Nhap ma nhan vien muon sua: ");
+                                String ma_muonsua = scan.nextLine();
+                                
+                                dsnv.suaTheoMa(ma_muonsua);
+                                break;
+                        }
                         break;
                     case 9:
                         break;

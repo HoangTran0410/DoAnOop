@@ -25,12 +25,22 @@ public class CheckValidation {
     }
     
     public static Boolean isPhoneValid(String phone) {
+        Boolean valid;
         try {
             int sdt = parseInt(phone);
+            valid = phone.length() == 10;
+            if(!valid) System.err.println("So dien thoai khong hop le!");
+            
         }catch(NumberFormatException e){
             System.err.println("So dien thoai khong hop le!");
             return false;
         }
-        return phone.length() == 10;
+        return valid;
+    }
+    
+    public static Boolean isSexValid(String gt) {
+        Boolean valid = gt.equalsIgnoreCase("nam") || gt.equalsIgnoreCase("nu");
+        if(!valid) System.err.println("Gioi tinh khong hop le!");
+        return valid;
     }
 }

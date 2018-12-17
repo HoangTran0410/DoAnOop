@@ -109,38 +109,41 @@ public class DanhSachNhanVien implements DanhSach, File {
                 NhanVienQuanLy nv1 = new NhanVienQuanLy();
                 do{
                     System.out.println("Nhap thong tin nhan vien quan ly:");
-                    nv1.nhap();
+                    nv1.nhapMa();
                     trung = trungMa(nv1.getMaNhanVien());
-                    if(!trung) them(nv1);
-                    else System.err.println("Ma nhan vien bi trung!! Vui long nhap lai");
-                    
+                    if(trung) System.err.println("Ma nhan vien bi trung!! Vui long nhap lai");
                 } while(trung);
+                
+                nv1.nhapThongTin();
+                them(nv1);
                 break;
                
             case 2:
                 NhanVienKinhDoanh nv2 = new NhanVienKinhDoanh();
                 do{
                     System.out.println("Nhap thong tin nhan vien kinh doanh:");
-                    nv2.nhap();
+                    nv2.nhapMa();
                     trung = trungMa(nv2.getMaNhanVien());
-                    if(!trung) them(nv2);
-                    else System.err.println("Ma nhan vien bi trung!! Vui long nhap lai");
-                    
+                    if(trung) System.err.println("Ma nhan vien bi trung!! Vui long nhap lai");
                 } while(trung);
+                
+                nv2.nhapThongTin();
+                them(nv2);
                 break;
             
             case 3:
                 NhanVienSanXuat nv3 = new NhanVienSanXuat();
                 do{
                     System.out.println("Nhap thong tin nhan vien san xuat:");
-                    nv3.nhap();
+                    nv3.nhapMa();
                     trung = trungMa(nv3.getMaNhanVien());
-                    if(!trung) them(nv3);
-                    else System.err.println("Ma nhan vien bi trung!! Vui long nhap lai");
-                    
+                    if(trung) System.err.println("Ma nhan vien bi trung!! Vui long nhap lai");
                 } while(trung);
+                nv3.nhapThongTin();
+                them(nv3);
+                
                 break;
-            default: System.out.println("Nhap sai gia tri!"); break;
+            default: System.out.println("Nhap sai lua chon!"); break;
         }
     }
 
