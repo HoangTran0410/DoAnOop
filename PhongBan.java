@@ -44,8 +44,16 @@ public class PhongBan implements NhapXuat {
 
     @Override
     public void nhap() {
+        nhapMa();
+        nhapThongTin();
+    }
+
+    public void nhapMa() {
         System.out.print("Ma phong ban: ");
         maPhongBan = scan.nextLine();
+    }
+
+    public void nhapThongTin() {
         System.out.print("Ten phong ban: ");
         tenPhongBan = scan.nextLine();
         System.out.println("So dien thoai: ");

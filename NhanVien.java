@@ -101,30 +101,51 @@ public class NhanVien implements NhapXuat {
     }
 
     public void nhapThongTin() {
-        System.out.print("Ho: ");
-        ho = MyString.toUpperCaseFirstLetter_AllWord(scan.nextLine());
-        System.out.print("Ten: ");
-        ten = MyString.toUpperCaseFirstLetter(scan.nextLine());
+        do {
+            System.out.print("Ho: ");
+            ho = MyString.toUpperCaseFirstLetter_AllWord(scan.nextLine());
+        } while (ho.trim().equals(""));
+        do {
+            System.out.print("Ten: ");
+            ten = MyString.toUpperCaseFirstLetter(scan.nextLine());
+        } while (ten.trim().equals(""));
+
         System.out.print("Gioi tinh (nam/nu): ");
         gioiTinh = scan.nextLine().equalsIgnoreCase("nam");
 
         nhapNgaySinh();
         scan.nextLine();
+        
+        do {
+            System.out.print("So dien thoai (10 chu so): ");
+            soDienThoai = scan.nextLine();
 
-        System.out.print("So dien thoai: ");
-        soDienThoai = scan.nextLine();
-        System.out.print("Dia chi: ");
-        diaChi = scan.nextLine();
+        } while (soDienThoai.trim().equals("") || !CheckValidation.isPhoneValid(soDienThoai));
+
+        do {
+            System.out.print("Dia chi: ");
+            diaChi = scan.nextLine();
+        } while (diaChi.trim().equals(""));
+
     }
 
     public void nhapNgaySinh() {
-        System.out.print("Ngay Thang Nam sinh:\n ");
-        System.out.print("\tNgay sinh: ");
-        ngaySinh = scan.nextInt();
-        System.out.print("\tThang sinh: ");
-        thangSinh = scan.nextInt();
-        System.out.print("\tNam sinh: ");
-        namSinh = scan.nextInt();
+        Boolean validation;
+        do {
+            System.out.print("Ngay-Thang-Nam sinh:\n ");
+            System.out.print("\tNgay sinh: ");
+            ngaySinh = scan.nextInt();
+            System.out.print("\tThang sinh: ");
+            thangSinh = scan.nextInt();
+            System.out.print("\tNam sinh: ");
+            namSinh = scan.nextInt();
+
+            validation = CheckValidation.isDateValid(CheckValidation.formatDate_NumToString(ngaySinh, thangSinh, namSinh));
+            if (!validation) {
+                System.err.println("Ngay-thang-nam khong hop le! Vui long nhap lai.");
+            }
+
+        } while (!validation);
     }
 
     @Override
@@ -141,7 +162,6 @@ public class NhanVien implements NhapXuat {
     }
 
     public void xuatThongtin() {
-        //.format(DateTimeFormatter.ofPattern("dd MM YY"))
         System.out.println("Ho va ten: " + ho + " " + ten);
         System.out.println("Gioi tinh: " + (gioiTinh ? "Nam" : "Nu"));
         System.out.println("Ngay sinh: " + ngaySinh + "/" + thangSinh + "/" + namSinh);

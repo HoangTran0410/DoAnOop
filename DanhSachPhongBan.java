@@ -15,6 +15,10 @@ public class DanhSachPhongBan implements DanhSach, File {
     public DanhSachPhongBan() {
         dspb = new PhongBan[0];
     }
+    
+    public DanhSachPhongBan(PhongBan[] dspb) {
+        this.dspb = dspb;
+    }
 
     public DanhSachPhongBan(DanhSachPhongBan ds) {
         this.dspb = ds.dspb;
@@ -22,13 +26,16 @@ public class DanhSachPhongBan implements DanhSach, File {
 
     @Override
     public void docFile(String tenFile) throws FileNotFoundException, IOException {
-        try (DataInputStream fileIn = new DataInputStream(new FileInputStream(tenFile))) {
+        DataInputStream fileIn = new DataInputStream(new FileInputStream(tenFile));
+        try {
             dspb = new PhongBan[0];
             while (fileIn.available() > 0) {
                 PhongBan pb = new PhongBan();
                 pb.docFile(fileIn);
                 them(pb);
             }
+        } finally {
+            fileIn.close();
         }
     }
 
@@ -44,10 +51,13 @@ public class DanhSachPhongBan implements DanhSach, File {
 
     @Override
     public void ghiFile(String tenFile, Boolean ghiThem) throws FileNotFoundException, IOException {
-        try (DataOutputStream fileOut = new DataOutputStream(new FileOutputStream(tenFile, ghiThem))) {
+        DataOutputStream fileOut = new DataOutputStream(new FileOutputStream(tenFile, ghiThem));
+        try {
             for (PhongBan pb : dspb) {
                 pb.ghiFile(fileOut);
             }
+        } finally {
+            fileOut.close();
         }
     }
 

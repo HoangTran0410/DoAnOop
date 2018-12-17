@@ -7,8 +7,11 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class DanhSachNhanVien implements DanhSach, File {
+    
+    Scanner scan = new Scanner(System.in);
 
     private NhanVien[] dsnv;
 
@@ -26,10 +29,13 @@ public class DanhSachNhanVien implements DanhSach, File {
 
     @Override
     public void ghiFile(String tenFile, Boolean ghiThem) throws FileNotFoundException, IOException {
-        try (DataOutputStream fileOut = new DataOutputStream(new FileOutputStream(tenFile, ghiThem))) {
+        DataOutputStream fileOut = new DataOutputStream(new FileOutputStream(tenFile, ghiThem));
+        try {
             for (NhanVien nv : dsnv) {
                 nv.ghiFile(fileOut);
             }
+        } finally {
+            fileOut.close();
         }
     }
 
@@ -46,7 +52,8 @@ public class DanhSachNhanVien implements DanhSach, File {
     // https://stackoverflow.com/questions/16945335/java-need-a-while-loop-to-reach-eof-i-e-while-eof-keep-parsing
     @Override
     public void docFile(String tenFile) throws FileNotFoundException, IOException {
-        try (DataInputStream fileIn = new DataInputStream(new FileInputStream(tenFile))) {
+        DataInputStream fileIn = new DataInputStream(new FileInputStream(tenFile));
+        try {
             dsnv = new NhanVien[0];
             while (fileIn.available() > 0) {
                 String loaiNhanVien = fileIn.readUTF();
@@ -67,6 +74,8 @@ public class DanhSachNhanVien implements DanhSach, File {
                     them(nv);
                 }
             }
+        } finally {
+            fileIn.close();
         }
     }
 
@@ -79,12 +88,60 @@ public class DanhSachNhanVien implements DanhSach, File {
     public void them(NhanVien nv) {
         dsnv = themNhanVien(nv, dsnv);
     }
+    
+    public Boolean trungMa(String ma) {
+        for(NhanVien nv : dsnv) {
+            if(nv.getMaNhanVien().equals(ma)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     @Override
     public void them() {
-        NhanVien temp = new NhanVien();
-        temp.nhap();
-        them(temp);
+        System.out.print("Loai nhan vien muon them (1:quanly/ 2:kinhdoanh/ 3:sanxuat/ 0:quayve): ");
+        int loai = scan.nextInt();
+        Boolean trung;
+        switch(loai) {
+            case 0: break;
+            case 1:
+                NhanVienQuanLy nv1 = new NhanVienQuanLy();
+                do{
+                    System.out.println("Nhap thong tin nhan vien quan ly:");
+                    nv1.nhap();
+                    trung = trungMa(nv1.getMaNhanVien());
+                    if(!trung) them(nv1);
+                    else System.err.println("Ma nhan vien bi trung!! Vui long nhap lai");
+                    
+                } while(trung);
+                break;
+               
+            case 2:
+                NhanVienKinhDoanh nv2 = new NhanVienKinhDoanh();
+                do{
+                    System.out.println("Nhap thong tin nhan vien kinh doanh:");
+                    nv2.nhap();
+                    trung = trungMa(nv2.getMaNhanVien());
+                    if(!trung) them(nv2);
+                    else System.err.println("Ma nhan vien bi trung!! Vui long nhap lai");
+                    
+                } while(trung);
+                break;
+            
+            case 3:
+                NhanVienSanXuat nv3 = new NhanVienSanXuat();
+                do{
+                    System.out.println("Nhap thong tin nhan vien san xuat:");
+                    nv3.nhap();
+                    trung = trungMa(nv3.getMaNhanVien());
+                    if(!trung) them(nv3);
+                    else System.err.println("Ma nhan vien bi trung!! Vui long nhap lai");
+                    
+                } while(trung);
+                break;
+            default: System.out.println("Nhap sai gia tri!"); break;
+        }
     }
 
     @Override
