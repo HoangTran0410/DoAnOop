@@ -34,7 +34,7 @@ public class Menu {
                         menuDanhSachNhanVien();
                         break;
                     case 2:
-                        System.err.println("Not available!");
+                        menuDanhSachPhongBan();
                         break;
                     case 3:
                         System.err.println("Not available!");
@@ -49,9 +49,9 @@ public class Menu {
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Loi IOException!");
         } finally {
-
+            System.out.println("================================== DA THOAT CHUONG TRINH ==================================");
         }
     }
 
@@ -132,32 +132,35 @@ public class Menu {
                         System.out.print("Xoa theo (1: ten/ 2: ma nhan vien): ");
                         int loaixoa = scan.nextInt();
                         scan.nextLine();
-                        
+
                         DanhSachNhanVien dsnv_ten_xoa = new DanhSachNhanVien(dsnv); // khởi tạo danh sách mới = danh sách cũ
                         switch (loaixoa) {
                             case 1:
                                 System.out.print("Nhap ten nhan vien muon xoa: ");
                                 String ten = scan.nextLine();
-                                
+
                                 // tìm theo tên
                                 dsnv_ten_xoa = new DanhSachNhanVien(dsnv.timKiemTheoTen(ten));
-                                
-                                // case 1 không break, do sau khi tìm theo tên sẽ ra 1 mảng (nếu có người trùng tên)
-                                // nên vẫn cần người dùng nhập mã (trong case 2) để xóa chính xác
 
+                            // case 1 không break, do sau khi tìm theo tên sẽ ra 1 mảng (nếu có người trùng tên)
+                            // nên vẫn cần người dùng nhập mã (trong case 2) để xóa chính xác
                             case 2:
                                 dsnv_ten_xoa.xuat(); // xuất mảng tìm thấy, nếu loaixoa == 2 thì chỗ xuất này xuất ra tất cả nv
-                                
-                                System.out.print("Nhap ma nhan vien muon xoa: ");
-                                String ma_muonxoa = scan.nextLine();
 
-                                if(dsnv_ten_xoa.timKiemTheoMa(ma_muonxoa) == null) {
-                                    System.err.println("Ma vua nhap khong trung khop!");
-                                } else {
-                                    dsnv.xoaTheoMa(ma_muonxoa);
+                                if (dsnv_ten_xoa.getSoLuong("tatca") > 0) {
+                                    System.out.print("Nhap ma nhan vien muon xoa: ");
+                                    String ma_muonxoa = scan.nextLine();
+
+                                    if (dsnv_ten_xoa.timKiemTheoMa(ma_muonxoa) == null) {
+                                        System.err.println("Ma vua nhap khong trung khop!");
+                                    } else {
+                                        dsnv.xoaTheoMa(ma_muonxoa);
+                                    }
                                 }
+
                                 break;
-                            default: System.err.println("Lua chon khong dung!");
+                            default:
+                                System.err.println("Lua chon khong dung!");
                         }
                         break;
                     case 8:
@@ -169,35 +172,71 @@ public class Menu {
                         System.out.print("Sua theo (1:ten/ 2:ma nhan vien): ");
                         int loaisua = scan.nextInt();
                         scan.nextLine();
-                        
+
                         DanhSachNhanVien dsnv_ten_sua = new DanhSachNhanVien(dsnv); // khởi tạo danh sách mới = danh sách cũ
                         switch (loaisua) {
                             case 1:
                                 System.out.print("Nhap ten nhan vien muon sua: ");
                                 String ten = scan.nextLine();
-                                
+
                                 // tìm theo tên
                                 dsnv_ten_sua = new DanhSachNhanVien(dsnv.timKiemTheoTen(ten));
-                                
-                                // case 1 không break, do sau khi tìm theo tên sẽ ra 1 mảng (nếu có người trùng tên)
-                                // nên vẫn cần người dùng nhập mã (trong case 2) để sửa chính xác
 
+                            // case 1 không break, do sau khi tìm theo tên sẽ ra 1 mảng (nếu có người trùng tên)
+                            // nên vẫn cần người dùng nhập mã (trong case 2) để sửa chính xác
                             case 2:
                                 dsnv_ten_sua.xuat(); // xuất mảng tìm thấy, nếu loaisua == 2 thì chỗ xuất này xuất ra tất cả nv
-                                
-                                System.out.print("Nhap ma nhan vien muon sua: ");
-                                String ma_muonsua = scan.nextLine();
+                                if (dsnv_ten_sua.getSoLuong("tatca") > 0) {
+                                    System.out.print("Nhap ma nhan vien muon sua: ");
+                                    String ma_muonsua = scan.nextLine();
 
-                                if(dsnv_ten_sua.timKiemTheoMa(ma_muonsua) == null) {
-                                    System.err.println("Ma vua nhap khong trung khop!");
-                                } else {
-                                    menuSuaNhanVien(dsnv, ma_muonsua);
+                                    if (dsnv_ten_sua.timKiemTheoMa(ma_muonsua) == null) {
+                                        System.err.println("Ma vua nhap khong trung khop!");
+                                    } else {
+                                        menuSuaNhanVien(dsnv, ma_muonsua);
+                                    }
                                 }
+
                                 break;
-                            default: System.err.println("Lua chon khong dung!");
+                            default:
+                                System.err.println("Lua chon khong dung!");
                         }
                         break;
                     case 9:
+                        System.out.print("Tim theo (1: ten/ 2: ma nhan vien): ");
+                        int loaitim = scan.nextInt();
+                        scan.nextLine();
+
+                        DanhSachNhanVien dsnv_ten_tim = new DanhSachNhanVien(dsnv);
+                        switch (loaitim) {
+                            case 1:
+                                System.out.print("Nhap ten (hoac ho ten) nhan vien muon tim: ");
+                                String ten = scan.nextLine();
+
+                                // tìm theo tên
+                                dsnv_ten_tim = new DanhSachNhanVien(dsnv.timKiemTheoTen(ten));
+
+                            // case 1 không break, do sau khi tìm theo tên sẽ ra 1 mảng (nếu có người trùng tên)
+                            // nên vẫn cần người dùng nhập mã (trong case 2) để tìm chính xác
+                            case 2:
+                                dsnv_ten_tim.xuat(); // xuất mảng tìm thấy, nếu loaisua == 2 thì chỗ xuất này xuất ra tất cả nv
+                                if (dsnv_ten_tim.getSoLuong("tatca") > 0) {
+                                    System.out.print("Nhap ma nhan vien muon xem thong tin: ");
+                                    String ma_muontim = scan.nextLine();
+
+                                    NhanVien timThay = dsnv_ten_tim.timKiemTheoMa(ma_muontim);
+                                    if (timThay == null) {
+                                        System.err.println("Ma vua nhap khong trung khop!");
+                                    } else {
+                                        System.out.println("\n--------------- " + timThay.loaiNhanVien() + "--------------- ");
+                                        timThay.xuat();
+                                        System.out.println("------------------------------------------------------------- ");
+                                    }
+                                }
+                                break;
+                            default:
+                                System.err.println("Lua chon khong dung!");
+                        }
                         break;
                     case 0:
                         exit = true;
@@ -227,7 +266,7 @@ public class Menu {
         NhanVien nv = ds.timKiemTheoMa(ma);
         while (!exit) {
             System.out.println("\n\n");
-            System.out.println("========= SUA NHAN VIEN " + nv.getHo() + " " + nv.getTen() + " ===========");
+            System.out.println("========= SUA NHAN VIEN '" + nv.getHo() + " " + nv.getTen() + "' ===========");
             System.out.println("1: Nhap Lai Tat Ca Thong Tin.");
             System.out.println("2: Sua Ho.");
             System.out.println("3: Sua Ten.");
@@ -242,10 +281,19 @@ public class Menu {
             int luachon = scan.nextInt();
 
             switch (luachon) {
-                case 1: ds.suaTheoMa(ma); break;
-                case 0: exit = true; break;
-                default: System.err.println("Lua chon khong dung!");
+                case 1:
+                    ds.suaTheoMa(ma);
+                    break;
+                case 0:
+                    exit = true;
+                    break;
+                default:
+                    System.err.println("Lua chon khong dung!");
             }
         }
+    }
+
+    public void menuDanhSachPhongBan() {
+
     }
 }

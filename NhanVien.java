@@ -3,9 +3,6 @@ package DoAnOop;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -228,6 +225,13 @@ public class NhanVien implements NhapXuat {
         System.out.println("So dien thoai: " + soDienThoai);
         System.out.println("Dia chi: " + diaChi);
         System.out.println("Ngay vao lam: " + ngayVaoLam.getNgay() + "/" + ngayVaoLam.getThang() + "/" + ngayVaoLam.getNam());
+    }
+    
+    public String loaiNhanVien() {
+        if(this instanceof NhanVienSanXuat) return "Nhan Vien San Xuat";
+        if(this instanceof NhanVienQuanLy) return "Nhan Vien Quan Ly";
+        if(this instanceof NhanVienKinhDoanh) return "Nhan Vien Kinh Doanh";
+        return "";
     }
 
     public String getMaNhanVien() {

@@ -227,7 +227,8 @@ public class DanhSachNhanVien implements DanhSach, File {
         NhanVien[] result = new NhanVien[0];
 
         for (NhanVien nv : dsnv) {
-            if (nv.getTen().toLowerCase().contains(ten.toLowerCase())) {
+            String hoten = nv.getHo()+" "+nv.getTen();
+            if (hoten.toLowerCase().contains(ten.toLowerCase())) {
                 result = themNhanVien(nv, result);
             }
         }
