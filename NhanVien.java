@@ -25,30 +25,8 @@ public class NhanVien implements NhapXuat {
         ngaySinh = new MyDate();
         ngayVaoLam = new MyDate();
     }
-    
-    public long tinhThamNien() throws ParseException {
 
-        DateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-
-        Date currentDate = new Date();
-        Date date1 = null;
-        Date date2 = null;
-
-        String startDate = "15-4-2016";
-        String endDate = simpleDateFormat.format(currentDate);
-
-        date1 = simpleDateFormat.parse(startDate);
-        date2 = simpleDateFormat.parse(endDate);
-
-        long getDiff = date2.getTime() - date1.getTime();
-
-        long getDaysDiff = getDiff / (24 * 60 * 60 * 1000);
-        long Years = getDaysDiff / 365;
-        return Years;
-
-    }
-
-    public int tinhThamNien2() throws ParseException {
+    public int tinhThamNien() throws ParseException {
         MyDate ngayHienTai = new MyDate(new Date());
         return ngayVaoLam.khoangCach(ngayHienTai);
     }
