@@ -6,16 +6,16 @@ import java.io.IOException;
 
 public class NhanVienKinhDoanh extends NhanVien {
 
-    private int doanhSoToiThieu, doanhSoThucTe;
+    private double doanhSoToiThieu, doanhSoThucTe;
 
     public NhanVienKinhDoanh() {
         super();
     }
 
-    public NhanVienKinhDoanh(String maNv, String maPB, String maL, String maHD,
+    public NhanVienKinhDoanh(String maNv, String maPB,
             String ho, String ten, String gt, String sdt, String diachi,
-            MyDate ngaysinh, MyDate ngayvaolam, int doanhSoToiThieu, int doanhSoThucTe) {
-        super(maNv, maPB, maL, maHD, ho, ten, gt, sdt, diachi, ngaysinh, ngayvaolam);
+            MyDate ngaysinh, MyDate ngayvaolam, double doanhSoToiThieu, double doanhSoThucTe) {
+        super(maNv, maPB, ho, ten, gt, sdt, diachi, ngaysinh, ngayvaolam);
         this.doanhSoToiThieu = doanhSoToiThieu;
         this.doanhSoThucTe = doanhSoThucTe;
     }
@@ -25,20 +25,38 @@ public class NhanVienKinhDoanh extends NhanVien {
         this.doanhSoThucTe = nv.doanhSoThucTe;
         this.doanhSoToiThieu = nv.doanhSoToiThieu;
     }
+    
+    @Override
+    public char xepLoai() {
+        if(doanhSoThucTe >= doanhSoToiThieu*2) return 'A';
+        if(doanhSoThucTe < doanhSoToiThieu*.5) return 'D';
+        if(doanhSoThucTe < doanhSoToiThieu) return 'C';
+        return 'B';
+    }
+    
+    public double hoaHong() {
+        double hh = 0.15*(doanhSoThucTe - doanhSoToiThieu);
+        return (hh>0?hh:0);
+    }
+    
+    @Override
+    public double getLuong() {
+        return super.getLuong()+hoaHong();
+    }
 
     @Override
     public void ghiFile(DataOutputStream fileOut) throws IOException {
         fileOut.writeUTF("kinhdoanh"); // ghi loại nhân viên trước, để lúc đọc file sẽ biết đang đoc dữ liệu của nhân viên gì
         super.ghiFile(fileOut);
-        fileOut.writeInt(doanhSoToiThieu);
-        fileOut.writeInt(doanhSoThucTe);
+        fileOut.writeDouble(doanhSoToiThieu);
+        fileOut.writeDouble(doanhSoThucTe);
     }
 
     @Override
     public void docFile(DataInputStream fileIn) throws IOException {
         super.docFile(fileIn);
-        doanhSoToiThieu = fileIn.readInt();
-        doanhSoThucTe = fileIn.readInt();
+        doanhSoToiThieu = fileIn.readDouble();
+        doanhSoThucTe = fileIn.readDouble();
     }
 
     @Override
@@ -57,19 +75,19 @@ public class NhanVienKinhDoanh extends NhanVien {
         System.out.println("Doanh so thuc te: " + doanhSoThucTe);
     }
 
-    public int getDoanhSoToiThieu() {
+    public double getDoanhSoToiThieu() {
         return doanhSoToiThieu;
     }
 
-    public void setDoanhSoToiThieu(int doanhSoToiThieu) {
+    public void setDoanhSoToiThieu(double doanhSoToiThieu) {
         this.doanhSoToiThieu = doanhSoToiThieu;
     }
 
-    public int getDoanhSoThucTe() {
+    public double getDoanhSoThucTe() {
         return doanhSoThucTe;
     }
 
-    public void setDoanhSoThucTe(int doanhSoThucTe) {
+    public void setDoanhSoThucTe(double doanhSoThucTe) {
         this.doanhSoThucTe = doanhSoThucTe;
     }
 }

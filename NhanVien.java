@@ -15,7 +15,6 @@ public class NhanVien implements NhapXuat {
     private Boolean gioiTinh;
     private MyDate ngaySinh, ngayVaoLam;
     
-    private int bacLuong;
     static final double[] HE_SO_LUONG_LIST = {0, 2.34, 2.67, 3.0, 3.33, 3.66, 3.99, 4.32, 4.65};
     private final double LUONG_CO_BAN = 1.4;
 
@@ -25,7 +24,6 @@ public class NhanVien implements NhapXuat {
         gioiTinh = true;
         ngaySinh = new MyDate();
         ngayVaoLam = new MyDate();
-        bacLuong = 1;
     }
 
     //    Luong
@@ -69,13 +67,12 @@ public class NhanVien implements NhapXuat {
     }
     
     public double getLuong() {
-        bacLuong = getBacLuong();
-        return LUONG_CO_BAN*HE_SO_LUONG_LIST[bacLuong];
+        return LUONG_CO_BAN*HE_SO_LUONG_LIST[getBacLuong()];
     }
     
     //    End luong
 
-    public NhanVien(String maNhanVien, String maPB, String maHD,
+    public NhanVien(String maNhanVien, String maPB,
             String ho, String ten, String gt, String sdt, String diachi,
             MyDate ngaysinh, MyDate ngayvaolam) {
         this.maNhanVien = maNhanVien;
