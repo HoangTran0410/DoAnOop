@@ -26,7 +26,7 @@ public class NhanVien implements NhapXuat {
         ngayVaoLam = new MyDate();
     }
 
-    public int tinhThamNien() throws ParseException {
+    public int tinhThamNien() {
         MyDate ngayHienTai = new MyDate(new Date());
         return ngayVaoLam.khoangCach(ngayHienTai);
     }

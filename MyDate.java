@@ -36,21 +36,28 @@ public class MyDate {
         nam = d.getYear() + 1900;
     }
 
-    public int khoangCach(MyDate other) throws ParseException {
-        DateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-
-        String startDate = CheckValidation.formatDate_NumToString(ngay, thang, nam);
-        String endDate = CheckValidation.formatDate_NumToString(other.getNgay(), other.getThang(), other.getNam());
-
-        Date date1 = simpleDateFormat.parse(startDate);
-        Date date2 = simpleDateFormat.parse(endDate);
-
-        long getDiff = date2.getTime() - date1.getTime();
-
-        long getDaysDiff = getDiff / (24 * 60 * 60 * 1000);
-        long year = getDaysDiff / 365;
-        return (int)year;
-
+    public int khoangCach(MyDate other) {
+        try {
+            DateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            
+            String startDate = CheckValidation.formatDate_NumToString(ngay, thang, nam);
+            String endDate = CheckValidation.formatDate_NumToString(other.getNgay(), other.getThang(), other.getNam());
+            
+            Date date1 = simpleDateFormat.parse(startDate);
+            Date date2 = simpleDateFormat.parse(endDate);
+            
+            long getDiff = date2.getTime() - date1.getTime();
+            
+            long getDaysDiff = getDiff / (24 * 60 * 60 * 1000);
+            long year = getDaysDiff / 365;
+            return (int)year;
+            
+        } catch (ParseException ex) {
+//            Logger.getLogger(MyDate.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Chuyen doi ngay thang khong thanh cong!");
+        }
+        
+        return -1;
     }
 
     public void xuat() {
