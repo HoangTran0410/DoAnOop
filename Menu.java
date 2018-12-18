@@ -192,8 +192,21 @@ public class Menu {
 
                                     if (dsnv_ten_sua.timKiemTheoMa(ma_muonsua) == null) {
                                         System.err.println("Ma vua nhap khong trung khop!");
+                                        
                                     } else {
-                                        menuSuaNhanVien(dsnv, ma_muonsua);
+                                        NhanVien nv = dsnv.timKiemTheoMa(ma_muonsua);
+                                        System.out.println("\n\n");
+                                        System.out.println("========= SUA NHAN VIEN '" + nv.getHo() + " " + nv.getTen() + "' ===========");
+                                        System.out.println("------------ Thong tin hien tai ----------");
+                                        nv.xuat();
+                                        System.out.println("------------------------------------------");
+
+                                        System.out.print("Dong y muon sua? (1:oke / 0:huy): ");
+                                        int luachon_muonsua = scan.nextInt();
+                                        if (luachon_muonsua == 0) {
+                                            break;
+                                        }
+                                        dsnv.suaTheoMa(ma_muonsua);
                                     }
                                 }
 
@@ -258,26 +271,6 @@ public class Menu {
             } finally {
                 System.out.print("\n====================================================\n\n");
             }
-        }
-    }
-
-    public void menuSuaNhanVien(DanhSachNhanVien ds, String ma) {
-        Boolean exit = false;
-        NhanVien nv = ds.timKiemTheoMa(ma);
-        while (!exit) {
-            System.out.println("\n\n");
-            System.out.println("========= SUA NHAN VIEN '" + nv.getHo() + " " + nv.getTen() + "' ===========");
-            System.out.println("------------ Thong tin hien tai ----------");
-            nv.xuat();
-            System.out.println("------------------------------------------");
-
-            System.out.print("Dong y muon sua? (1:oke / 0:huy): ");
-            int luachon = scan.nextInt();
-            if (luachon == 0) {
-                break;
-            }
-
-            ds.suaTheoMa(ma);
         }
     }
 
@@ -382,8 +375,9 @@ public class Menu {
                                     ds_temp.xuat();
                                 }
                                 break;
-                                
-                            default: System.err.println("Lua chon khong dung!");
+
+                            default:
+                                System.err.println("Lua chon khong dung!");
                         }
 
                     case 0:
@@ -405,5 +399,9 @@ public class Menu {
                 System.out.print("\n====================================================\n\n");
             }
         }
+    }
+    
+    public void menuDanhSachLuong() {
+        
     }
 }

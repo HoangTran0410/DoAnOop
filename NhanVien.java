@@ -10,30 +10,76 @@ import java.util.Scanner;
 public class NhanVien implements NhapXuat {
 
     Scanner scan = new Scanner(System.in);
-    private String maNhanVien, maPhongBan, maLuong;
+    private String maNhanVien, maPhongBan;
     private String ho, ten, soDienThoai, diaChi;
     private Boolean gioiTinh;
     private MyDate ngaySinh, ngayVaoLam;
+    
+    private int bacLuong;
+    static final double[] HE_SO_LUONG_LIST = {0, 2.34, 2.67, 3.0, 3.33, 3.66, 3.99, 4.32, 4.65};
+    private final double LUONG_CO_BAN = 1.4;
 
     public NhanVien() {
-        maNhanVien = maPhongBan = maLuong = "";
+        maNhanVien = maPhongBan = "";
         ho = ten = soDienThoai = diaChi = "";
         gioiTinh = true;
         ngaySinh = new MyDate();
         ngayVaoLam = new MyDate();
+        bacLuong = 1;
     }
 
-    public int tinhThamNien() {
+    //    Luong
+    public int thamNienLamViec() {
         MyDate ngayHienTai = new MyDate(new Date());
         return ngayVaoLam.khoangCach(ngayHienTai);
     }
+    
+    public int getBacLuong() {
+        int thamnien = thamNienLamViec();
+        int bac = 1;
+        for(int i = 2; i < thamnien; i+=2) {
+            if(bac < 7) {
+                bac++;   
+            } else break;
+        }
+        
+        return bac;
+    }
+    
+    public double phuCapThamNien() {
+        int thamnien = thamNienLamViec();
+        if(thamnien <= 3) return 1;
+        if(thamnien <= 6) return 2;
+        if(thamnien <= 10) return 4;
+        return (5+(thamnien-11)*.5);
+    }
+    
+    public char xepLoai() {
+        return 'A';
+    }
+    
+    public double giaTriXepLoai(char xl) {
+        switch(xl) {
+            case 'A': return 1;
+            case 'B': return .75;
+            case 'C': return .5;
+            case 'D': return 0;
+            default: return 0;
+        }
+    }
+    
+    public double getLuong() {
+        bacLuong = getBacLuong();
+        return LUONG_CO_BAN*HE_SO_LUONG_LIST[bacLuong];
+    }
+    
+    //    End luong
 
-    public NhanVien(String maNhanVien, String maPB, String maL, String maHD,
+    public NhanVien(String maNhanVien, String maPB, String maHD,
             String ho, String ten, String gt, String sdt, String diachi,
             MyDate ngaysinh, MyDate ngayvaolam) {
         this.maNhanVien = maNhanVien;
         this.maPhongBan = maPB;
-        this.maLuong = maL;
         this.ho = MyString.toUpperCaseFirstLetter_AllWord(ho);
         this.ten = MyString.toUpperCaseFirstLetter(ten);
         this.soDienThoai = sdt;
@@ -46,7 +92,6 @@ public class NhanVien implements NhapXuat {
     public NhanVien(NhanVien nv) {
         this.maNhanVien = nv.maNhanVien;
         this.maPhongBan = nv.maPhongBan;
-        this.maLuong = nv.maLuong;
         this.ho = nv.ho;
         this.ten = nv.ten;
         this.soDienThoai = nv.soDienThoai;
@@ -59,7 +104,6 @@ public class NhanVien implements NhapXuat {
     public void ghiFile(DataOutputStream fileOut) throws IOException {
         fileOut.writeUTF(maNhanVien);
         fileOut.writeUTF(maPhongBan);
-        fileOut.writeUTF(maLuong);
         fileOut.writeUTF(ho);
         fileOut.writeUTF(ten);
         fileOut.writeUTF(soDienThoai);
@@ -76,7 +120,6 @@ public class NhanVien implements NhapXuat {
     public void docFile(DataInputStream fileIn) throws IOException {
         maNhanVien = fileIn.readUTF();
         maPhongBan = fileIn.readUTF();
-        maLuong = fileIn.readUTF();
         ho = fileIn.readUTF();
         ten = fileIn.readUTF();
         soDienThoai = fileIn.readUTF();
@@ -115,11 +158,6 @@ public class NhanVien implements NhapXuat {
             valid = CheckValidation.checkTrungMa_PhongBan(maPhongBan);
             if(!valid) System.err.println("Khong ton tai phong ban co ma nay! Vui long nhap lai.");
         } while (maPhongBan.trim().equals("") || !valid);
-
-        do {
-            System.out.print("Ma luong: ");
-            maLuong = scan.nextLine();
-        } while (maLuong.trim().equals(""));
     }
 
     public void nhapThongTin() {
@@ -235,7 +273,6 @@ public class NhanVien implements NhapXuat {
     public void xuatMa() {
         System.out.println("Ma nhan vien: " + maNhanVien);
         System.out.println("Ma phong ban: " + maPhongBan);
-        System.out.println("Ma luong: " + maLuong);
     }
 
     public void xuatThongtin() {
@@ -245,6 +282,7 @@ public class NhanVien implements NhapXuat {
         System.out.println("So dien thoai: " + soDienThoai);
         System.out.println("Dia chi: " + diaChi);
         System.out.println("Ngay vao lam: " + ngayVaoLam.getNgay() + "/" + ngayVaoLam.getThang() + "/" + ngayVaoLam.getNam());
+        System.out.println("Luong hien tai: " + getLuong() + " trieu.");
     }
 
     public String loaiNhanVien() {
@@ -274,14 +312,6 @@ public class NhanVien implements NhapXuat {
 
     public void setMaPhongBan(String maPhongBan) {
         this.maPhongBan = maPhongBan;
-    }
-
-    public String getMaLuong() {
-        return maLuong;
-    }
-
-    public void setMaLuong(String maLuong) {
-        this.maLuong = maLuong;
     }
 
     public String getHo() {

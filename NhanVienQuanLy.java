@@ -13,10 +13,10 @@ public class NhanVienQuanLy extends NhanVien {
         super();
     }
 
-    public NhanVienQuanLy(String maNv, String maPB, String maL, String maHD,
+    public NhanVienQuanLy(String maNv, String maPB, String maHD,
             String ho, String ten, String gt, String sdt, String diachi,
             MyDate ngaysinh, MyDate ngayvaolam, String maCv, double hsChucVu) {
-        super(maNv, maPB, maL, maHD, ho, ten, gt, sdt, diachi, ngaysinh, ngayvaolam);
+        super(maNv, maPB, maHD, ho, ten, gt, sdt, diachi, ngaysinh, ngayvaolam);
         maChucVu = maCv;
         heSoPhuCapChucVu = hsChucVu;
     }
@@ -25,6 +25,11 @@ public class NhanVienQuanLy extends NhanVien {
         super(nv);
         this.maChucVu = nv.maChucVu;
         this.heSoPhuCapChucVu = nv.heSoPhuCapChucVu;
+    }
+    
+    @Override
+    public double getLuong() {
+        return super.getLuong()+(heSoPhuCapChucVu*2)+phuCapThamNien();
     }
 
     @Override

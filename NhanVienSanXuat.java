@@ -14,15 +14,37 @@ public class NhanVienSanXuat extends NhanVien {
         soNgayNghi = 0;
     }
 
-    public NhanVienSanXuat(String maNv, String maPB, String maL, String maHD,
+    public NhanVienSanXuat(String maNv, String maPB, String maHD,
             String ho, String ten, String gt, String sdt, String diachi,
             MyDate ngaysinh, MyDate ngayvaolam, int songaynghi) {
-        super(maNv, maPB, maL, maHD, ho, ten, gt, sdt, diachi, ngaysinh, ngayvaolam);
+        super(maNv, maPB, maHD, ho, ten, gt, sdt, diachi, ngaysinh, ngayvaolam);
         this.soNgayNghi = songaynghi;
     }
 
-    public NhanVienSanXuat(NhanVien nv) {
+    public NhanVienSanXuat(NhanVienSanXuat nv) {
         super(nv);
+        this.soNgayNghi = nv.soNgayNghi;
+    }
+
+    public int getSoNgayNghi() {
+        return soNgayNghi;
+    }
+
+    public void setSoNgayNghi(int soNgayNghi) {
+        this.soNgayNghi = soNgayNghi;
+    }
+    
+    @Override
+    public char xepLoai() {
+        if(soNgayNghi <= 1) return 'A';
+        if(soNgayNghi <= 3) return 'B';
+        if(soNgayNghi <= 5) return 'C';
+        return 'D';
+    }
+    
+    @Override
+    public double getLuong() {
+        return super.getLuong()*(1+PHUCAPNANGNHOC)*giaTriXepLoai(xepLoai()) + phuCapThamNien();
     }
     
     @Override
