@@ -51,11 +51,24 @@ public class MyDate {
             return (int)year;
             
         } catch (ParseException ex) {
-//            Logger.getLogger(MyDate.class.getName()).log(Level.SEVERE, null, ex);
             System.err.println("Chuyen doi ngay thang khong thanh cong!");
         }
         
         return -1;
+    }
+    
+    public Boolean isBefore(MyDate other) {
+        if(this.nam < other.nam) return true;
+        if(this.thang < other.thang) return true;
+        if(this.ngay < other.ngay) return true;
+        return false;
+    }
+    
+    public Boolean isAfter(MyDate other) {
+        if(this.nam > other.nam) return true;
+        if(this.thang > other.thang) return true;
+        if(this.ngay > other.ngay) return true;
+        return false;
     }
 
     public void xuat() {

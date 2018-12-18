@@ -207,7 +207,7 @@ public class DanhSachNhanVien implements DanhSach, File {
     public void xuat() {
         // https://docs.oracle.com/javase/tutorial/java/data/numberformat.html
         if (dsnv.length == 0) {
-            System.err.println("Khong co nhan vien nao!");
+            System.err.println("Chua co nhan vien nao!");
             return;
         }
 

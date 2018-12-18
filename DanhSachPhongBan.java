@@ -110,15 +110,15 @@ public class DanhSachPhongBan implements DanhSach, File {
         for (PhongBan pb : dspb) {
             if (pb.getMaPhongBan().toLowerCase().contains(ma.toLowerCase())) {
                 // xóa giá trị cũ
-                pb.setMaPhongBan(pb.getMaPhongBan()+" sua chua xong!");
-                
+                pb.setMaPhongBan(pb.getMaPhongBan() + " sua chua xong!");
+
                 // lưu vào file (do hàm check đọc từ file)
                 try {
                     ghiDe(Menu.FILE_DANHSACHPHONGBAN);
                 } catch (IOException ex) {
                     Logger.getLogger(DanhSachNhanVien.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
+
                 // nhập giá trị mới
                 pb.nhap();
             }
@@ -143,8 +143,24 @@ public class DanhSachPhongBan implements DanhSach, File {
         return -1;
     }
 
+    public PhongBan[] timKiemTheoTen(String ten) {
+        PhongBan[] result = new PhongBan[0];
+
+        for (PhongBan pb : dspb) {
+            if (pb.getTenPhongBan().toLowerCase().equals(ten.toLowerCase())) {
+                result = themPhongBan(pb, result);
+            }
+        }
+        return result;
+    }
+
     @Override
     public void xuat() {
+        if (dspb.length == 0) {
+            System.err.println("Chua co phong ban nao!");
+            return;
+        }
+
         System.out.println("   MaPB     Ten Phong Ban     SDT Phong Ban          DiaChi");
         System.out.println("--------------------------------------------------------------------");
         for (PhongBan pb : dspb) {
