@@ -37,6 +37,11 @@ public class NhanVienSanXuat extends NhanVien {
         super.nhapMa();
         nhapThongTin();
     }
+        
+    public void xuatThongTin() {
+        super.xuatThongtin();
+        System.out.print("So ngay nghi: " + soNgayNghi);
+    }
 
     @Override
     public void ghiFile(DataOutputStream fileOut) throws IOException {

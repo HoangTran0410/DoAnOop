@@ -101,15 +101,20 @@ public class NhanVien implements NhapXuat {
     }
 
     public void nhapMa() {
+        Boolean valid;
         do {
             System.out.print("Ma nhan vien: ");
             maNhanVien = scan.nextLine();
-        } while (maNhanVien.trim().equals(""));
+            valid = !CheckValidation.checkTrungMa_NhanVien(maNhanVien);
+            if(!valid) System.err.println("Ma nhan vien bi trung! Vui long nhap lai.");
+        } while (maNhanVien.trim().equals("") || !valid);
 
         do {
             System.out.print("Ma phong ban: ");
             maPhongBan = scan.nextLine();
-        } while (maPhongBan.trim().equals(""));
+            valid = CheckValidation.checkTrungMa_PhongBan(maPhongBan);
+            if(!valid) System.err.println("Khong ton tai phong ban co ma nay! Vui long nhap lai.");
+        } while (maPhongBan.trim().equals("") || !valid);
 
         do {
             System.out.print("Ma luong: ");
@@ -137,7 +142,7 @@ public class NhanVien implements NhapXuat {
 
         nhapNgaySinh();
         scan.nextLine();
-        
+
         nhapNgayVaoLam();
         scan.nextLine();
 
@@ -226,11 +231,17 @@ public class NhanVien implements NhapXuat {
         System.out.println("Dia chi: " + diaChi);
         System.out.println("Ngay vao lam: " + ngayVaoLam.getNgay() + "/" + ngayVaoLam.getThang() + "/" + ngayVaoLam.getNam());
     }
-    
+
     public String loaiNhanVien() {
-        if(this instanceof NhanVienSanXuat) return "Nhan Vien San Xuat";
-        if(this instanceof NhanVienQuanLy) return "Nhan Vien Quan Ly";
-        if(this instanceof NhanVienKinhDoanh) return "Nhan Vien Kinh Doanh";
+        if (this instanceof NhanVienSanXuat) {
+            return "Nhan Vien San Xuat";
+        }
+        if (this instanceof NhanVienQuanLy) {
+            return "Nhan Vien Quan Ly";
+        }
+        if (this instanceof NhanVienKinhDoanh) {
+            return "Nhan Vien Kinh Doanh";
+        }
         return "";
     }
 
@@ -301,7 +312,7 @@ public class NhanVien implements NhapXuat {
     public MyDate getNgaySinh() {
         return ngaySinh;
     }
-    
+
     public void setNgaySinh(MyDate t) {
         this.ngaySinh = t;
     }
@@ -317,7 +328,7 @@ public class NhanVien implements NhapXuat {
     public void setNgayVaoLam(int ngay, int thang, int nam) {
         this.ngayVaoLam = new MyDate(ngay, thang, nam);
     }
-    
+
     public void setNgayVaoLam(MyDate t) {
         this.ngayVaoLam = t;
     }

@@ -1,6 +1,6 @@
 package DoAnOop;
 
-import static java.lang.Integer.parseInt;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,38 +19,61 @@ public class CheckValidation {
             return false;
         }
     }
-    
+
     public static String formatDate_NumToString(int ngay, int thang, int nam) {
         return ngay + "-" + thang + "-" + nam;
     }
-    
+
     public static Boolean isPhoneValid(String phone) {
         Boolean valid;
         try {
-            int sdt = parseInt(phone);
+            long sdt = Long.parseLong(phone);
             valid = (phone.length() == 10);
-            if(!valid) System.err.println("So dien thoai khong hop le!");
-            
-        }catch(NumberFormatException e){
+            if (!valid) {
+                System.err.println("So dien thoai khong hop le!");
+            }
+
+        } catch (NumberFormatException e) {
             System.err.println("So dien thoai khong hop le!");
             return false;
         }
         return valid;
     }
-    
+
     public static Boolean isSexValid(String gt) {
         Boolean valid = gt.equalsIgnoreCase("nam") || gt.equalsIgnoreCase("nu");
-        if(!valid) System.err.println("Gioi tinh khong hop le!");
+        if (!valid) {
+            System.err.println("Gioi tinh khong hop le!");
+        }
         return valid;
     }
-    
-    public static Boolean checkTrungMa_NhanVien() {
-        // mo file
-        // dong
-        return true;
+
+    public static Boolean checkTrungMa_NhanVien(String ma) {
+        DanhSachNhanVien dsnv = new DanhSachNhanVien();
+
+        try {
+            dsnv.docFile(Menu.FILE_DANHSACHNHANVIEN);
+        } catch (IOException e) {
+            System.err.println("Loi doc file danh sach nhan vien de check trung ma!");
+        }
+
+        return dsnv.timKiemTheoMa(ma) != null;
     }
-    
-    public static Boolean checkTonTai_PhongBan() {
-        return false;
+
+    public static Boolean checkTrungMa_PhongBan(String ma) {
+        DanhSachPhongBan dspb = new DanhSachPhongBan();
+
+        try {
+            dspb.docFile(Menu.FILE_DANHSACHPHONGBAN);
+        } catch (IOException e) {
+            try {
+                dspb.ghiDe(Menu.FILE_DANHSACHPHONGBAN);
+                System.err.println("Loi doc file danh sach phong ban de check trung ma!");
+            } catch (IOException ex) {
+                System.err.println("Khong the tao file danh sach phong ban!");
+            }
+        }
+
+        return dspb.timKiemTheoMa(ma) != null;
     }
 }

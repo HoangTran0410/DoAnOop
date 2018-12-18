@@ -7,6 +7,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DanhSachPhongBan implements DanhSach, File {
 
@@ -15,7 +17,7 @@ public class DanhSachPhongBan implements DanhSach, File {
     public DanhSachPhongBan() {
         dspb = new PhongBan[0];
     }
-    
+
     public DanhSachPhongBan(PhongBan[] dspb) {
         this.dspb = dspb;
     }
@@ -107,9 +109,38 @@ public class DanhSachPhongBan implements DanhSach, File {
     public void suaTheoMa(String ma) {
         for (PhongBan pb : dspb) {
             if (pb.getMaPhongBan().toLowerCase().contains(ma.toLowerCase())) {
+                // xóa giá trị cũ
+                pb.setMaPhongBan(pb.getMaPhongBan()+" sua chua xong!");
+                
+                // lưu vào file (do hàm check đọc từ file)
+                try {
+                    ghiDe(Menu.FILE_DANHSACHPHONGBAN);
+                } catch (IOException ex) {
+                    Logger.getLogger(DanhSachNhanVien.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                // nhập giá trị mới
                 pb.nhap();
             }
         }
+    }
+
+    public PhongBan timKiemTheoMa(String ma) {
+        for (PhongBan pb : dspb) {
+            if (pb.getMaPhongBan().equals(ma)) {
+                return pb;
+            }
+        }
+        return null;
+    }
+
+    public int timKiemViTriTheoMa(String ma) {
+        for (int i = 0; i < dspb.length; i++) {
+            if (dspb[i].getMaPhongBan().equals(ma)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     @Override
@@ -129,5 +160,9 @@ public class DanhSachPhongBan implements DanhSach, File {
 
     public int soLuong() {
         return dspb.length;
+    }
+
+    public PhongBan[] getDanhSach() {
+        return dspb;
     }
 }

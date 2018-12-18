@@ -8,6 +8,8 @@ import java.io.FileOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DanhSachNhanVien implements DanhSach, File {
 
@@ -184,7 +186,18 @@ public class DanhSachNhanVien implements DanhSach, File {
     @Override
     public void suaTheoMa(String ma) {
         for (NhanVien nv : dsnv) {
-            if (nv.getMaNhanVien().toLowerCase().contains(ma.toLowerCase())) {
+            if (nv.getMaNhanVien().equals(ma)) {
+                // xóa giá trị cũ
+                nv.setMaNhanVien(nv.getMaNhanVien() + " sua chua xong!");
+                
+                // lưu vào file (do hàm check đọc từ file)
+                try {
+                    ghiDe(Menu.FILE_DANHSACHNHANVIEN);
+                } catch (IOException ex) {
+                    Logger.getLogger(DanhSachNhanVien.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                // nhập lại giá trị
                 nv.nhap();
             }
         }
@@ -216,18 +229,27 @@ public class DanhSachNhanVien implements DanhSach, File {
 
     public NhanVien timKiemTheoMa(String ma) {
         for (NhanVien nv : dsnv) {
-            if (nv.getMaNhanVien().toLowerCase().contains(ma.toLowerCase())) {
+            if (nv.getMaNhanVien().equals(ma)) {
                 return nv;
             }
         }
         return null;
     }
 
+    public int timKiemViTriTheoMa(String ma) {
+        for (int i = 0; i < dsnv.length; i++) {
+            if (dsnv[i].getMaNhanVien().equals(ma)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     public NhanVien[] timKiemTheoTen(String ten) {
         NhanVien[] result = new NhanVien[0];
 
         for (NhanVien nv : dsnv) {
-            String hoten = nv.getHo()+" "+nv.getTen();
+            String hoten = nv.getHo() + " " + nv.getTen();
             if (hoten.toLowerCase().contains(ten.toLowerCase())) {
                 result = themNhanVien(nv, result);
             }
@@ -298,5 +320,9 @@ public class DanhSachNhanVien implements DanhSach, File {
             return result.length;
         }
         return 0;
+    }
+
+    public NhanVien[] getDanhSach() {
+        return dsnv;
     }
 }

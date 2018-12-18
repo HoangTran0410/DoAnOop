@@ -5,18 +5,18 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class DanhSachLuong implements DanhSach, File {
-    private Luong[] danhSachLuong;
+    private Luong[] dsl;
 
     public DanhSachLuong() {
-        danhSachLuong = new Luong[0];
+        dsl = new Luong[0];
     }
     
     public DanhSachLuong(Luong[] mangLuong) {
-        danhSachLuong = mangLuong;
+        dsl = mangLuong;
     }
     
     public DanhSachLuong(DanhSachLuong ds) {
-        this.danhSachLuong = ds.danhSachLuong;
+        this.dsl = ds.dsl;
     }
     
     public Luong timKiemTheoMa(String maLuong) {

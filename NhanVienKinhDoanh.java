@@ -51,14 +51,8 @@ public class NhanVienKinhDoanh extends NhanVien {
     }
     
     @Override
-    public void nhap() {
-        super.nhapMa();
-        nhapThongTin();
-    }
-
-    @Override
-    public void xuat() {
-        super.xuat();
+    public void xuatThongtin() {
+        super.xuatThongtin();
         System.out.println("Doanh so toi thieu: " + doanhSoToiThieu);
         System.out.println("Doanh so thuc te: " + doanhSoThucTe);
     }
