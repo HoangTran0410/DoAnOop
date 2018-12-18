@@ -14,7 +14,7 @@ public class NhanVien implements NhapXuat {
     private String ho, ten, soDienThoai, diaChi;
     private Boolean gioiTinh;
     private MyDate ngaySinh, ngayVaoLam;
-    
+
     static final double[] HE_SO_LUONG_LIST = {0, 2.34, 2.67, 3.0, 3.33, 3.66, 3.99, 4.32, 4.65};
     private final double LUONG_CO_BAN = 1.4;
 
@@ -31,47 +31,59 @@ public class NhanVien implements NhapXuat {
         MyDate ngayHienTai = new MyDate(new Date());
         return ngayVaoLam.khoangCach(ngayHienTai);
     }
-    
+
     public int getBacLuong() {
         int thamnien = thamNienLamViec();
         int bac = 1;
-        for(int i = 2; i < thamnien; i+=2) {
-            if(bac < 7) {
-                bac++;   
-            } else break;
+        for (int i = 2; i < thamnien; i += 2) {
+            if (bac < 7) {
+                bac++;
+            } else {
+                break;
+            }
         }
-        
+
         return bac;
     }
-    
+
     public double phuCapThamNien() {
         int thamnien = thamNienLamViec();
-        if(thamnien <= 3) return 1;
-        if(thamnien <= 6) return 2;
-        if(thamnien <= 10) return 4;
-        return (5+(thamnien-11)*.5);
+        if (thamnien <= 3) {
+            return 1;
+        }
+        if (thamnien <= 6) {
+            return 2;
+        }
+        if (thamnien <= 10) {
+            return 4;
+        }
+        return (5 + (thamnien - 11) * .5);
     }
-    
+
     public char xepLoai() {
         return 'A';
     }
-    
+
     public double giaTriXepLoai(char xl) {
-        switch(xl) {
-            case 'A': return 1;
-            case 'B': return .75;
-            case 'C': return .5;
-            case 'D': return 0;
-            default: return 0;
+        switch (xl) {
+            case 'A':
+                return 1;
+            case 'B':
+                return .75;
+            case 'C':
+                return .5;
+            case 'D':
+                return 0;
+            default:
+                return 0;
         }
     }
-    
-    public double getLuong() {
-        return LUONG_CO_BAN*HE_SO_LUONG_LIST[getBacLuong()];
-    }
-    
-    //    End luong
 
+    public double getLuong() {
+        return LUONG_CO_BAN * HE_SO_LUONG_LIST[getBacLuong()];
+    }
+
+    //    End luong
     public NhanVien(String maNhanVien, String maPB,
             String ho, String ten, String gt, String sdt, String diachi,
             MyDate ngaysinh, MyDate ngayvaolam) {
@@ -146,14 +158,18 @@ public class NhanVien implements NhapXuat {
             System.out.print("Ma nhan vien: ");
             maNhanVien = scan.nextLine();
             valid = !CheckValidation.checkTrungMa_NhanVien(maNhanVien);
-            if(!valid) System.err.println("Ma nhan vien bi trung! Vui long nhap lai.");
+            if (!valid) {
+                System.err.println("Ma nhan vien bi trung! Vui long nhap lai.");
+            }
         } while (maNhanVien.trim().equals("") || !valid);
 
         do {
             System.out.print("Ma phong ban: ");
             maPhongBan = scan.nextLine();
             valid = CheckValidation.checkTrungMa_PhongBan(maPhongBan);
-            if(!valid) System.err.println("Khong ton tai phong ban co ma nay! Vui long nhap lai.");
+            if (!valid) {
+                System.err.println("Khong ton tai phong ban co ma nay! Vui long nhap lai.");
+            }
         } while (maPhongBan.trim().equals("") || !valid);
     }
 
@@ -207,15 +223,17 @@ public class NhanVien implements NhapXuat {
                 validation = CheckValidation.isDateValid(CheckValidation.formatDate_NumToString(ngay, thang, nam));
                 if (validation) {
                     MyDate now = new MyDate();
-                    if(now.isBefore(new MyDate(ngay, thang, nam))) {
+                    if (now.isBefore(new MyDate(ngay, thang, nam))) {
                         validation = false;
                         System.err.println("Ngay nhap vao lon hon ngay hien tai!");
-                        
-                    } else if(new MyDate(ngay, thang, nam).khoangCach(now) <= 18) {
+
+                    } else if (new MyDate(ngay, thang, nam).khoangCach(now) <= 18) {
                         validation = false;
                         System.err.println("Nhan vien duoi 18 tuoi!!");
-                        
-                    } else ngaySinh = new MyDate(ngay, thang, nam);
+
+                    } else {
+                        ngaySinh = new MyDate(ngay, thang, nam);
+                    }
                 } else {
                     System.err.println("Ngay-thang-nam khong hop le! Vui long nhap lai.");
                 }
@@ -243,12 +261,14 @@ public class NhanVien implements NhapXuat {
                 validation = CheckValidation.isDateValid(CheckValidation.formatDate_NumToString(ngay, thang, nam));
                 if (validation) {
                     MyDate now = new MyDate();
-                    if(now.isBefore(new MyDate(ngay, thang, nam))) {
+                    if (now.isBefore(new MyDate(ngay, thang, nam))) {
                         validation = false;
                         System.err.println("Ngay nhap vao lon hon ngay hien tai!");
-                        
-                    } else ngayVaoLam = new MyDate(ngay, thang, nam);
-                    
+
+                    } else {
+                        ngayVaoLam = new MyDate(ngay, thang, nam);
+                    }
+
                 } else {
                     System.err.println("Ngay-thang-nam khong hop le! Vui long nhap lai.");
                 }
@@ -259,6 +279,18 @@ public class NhanVien implements NhapXuat {
             }
 
         } while (!validation);
+    }
+
+    public void xuatInline() {
+        System.out.format("| %-6s | %-15s %-10s | %10s | %11s | %12s | %25s | %10s |\n",
+                maNhanVien,
+                ho,
+                ten,
+                getGioiTinh(),
+                ngaySinh.getNgay() + "/" + ngaySinh.getThang() + "/" + ngaySinh.getNam(),
+                soDienThoai,
+                diaChi,
+                getLuong());
     }
 
     @Override

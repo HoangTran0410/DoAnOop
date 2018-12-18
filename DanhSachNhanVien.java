@@ -189,14 +189,14 @@ public class DanhSachNhanVien implements DanhSach, File {
             if (nv.getMaNhanVien().equals(ma)) {
                 // xóa giá trị cũ
                 nv.setMaNhanVien(nv.getMaNhanVien() + " sua chua xong!");
-                
+
                 // lưu vào file (do hàm check đọc từ file)
                 try {
                     ghiDe(Menu.FILE_DANHSACHNHANVIEN);
                 } catch (IOException ex) {
                     Logger.getLogger(DanhSachNhanVien.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
+
                 // nhập lại giá trị
                 nv.nhap();
             }
@@ -211,20 +211,12 @@ public class DanhSachNhanVien implements DanhSach, File {
             return;
         }
 
-        System.out.println("   MaNV           Ho va Ten            GioiTinh     NgaySinh     SoDienThoai            Dia Chi");
-        System.out.println("------------------------------------------------------------------------------------------------------------");
+        System.out.println("   MaNV           Ho va Ten            GioiTinh     NgaySinh     SoDienThoai            Dia Chi               Luong(trieu)");
+        System.out.println("--------------------------------------------------------------------------------------------------------------------------");
         for (NhanVien nv : dsnv) {
-            // MaNV | HoTen | GioiTinh | NgaySinh | SoDienThoai
-            System.out.format("| %-6s | %-15s %-10s | %10s | %11s | %12s | %25s |\n",
-                    nv.getMaNhanVien(),
-                    nv.getHo(),
-                    nv.getTen(),
-                    nv.getGioiTinh(),
-                    nv.getNgaySinh().getNgay() + "/" + nv.getNgaySinh().getThang() + "/" + nv.getNgaySinh().getNam(),
-                    nv.getSoDienThoai(),
-                    nv.getDiaChi());
+            nv.xuatInline();
         }
-        System.out.println("------------------------------------------------------------------------------------------------------------");
+        System.out.println("---------------------------------------------------------------------------------------------------------------------------");
     }
 
     public NhanVien timKiemTheoMa(String ma) {

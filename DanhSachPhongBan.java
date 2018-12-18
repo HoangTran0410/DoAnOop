@@ -147,7 +147,7 @@ public class DanhSachPhongBan implements DanhSach, File {
         PhongBan[] result = new PhongBan[0];
 
         for (PhongBan pb : dspb) {
-            if (pb.getTenPhongBan().toLowerCase().equals(ten.toLowerCase())) {
+            if (pb.getTenPhongBan().toLowerCase().contains(ten.toLowerCase())) {
                 result = themPhongBan(pb, result);
             }
         }

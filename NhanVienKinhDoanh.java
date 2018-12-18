@@ -25,23 +25,29 @@ public class NhanVienKinhDoanh extends NhanVien {
         this.doanhSoThucTe = nv.doanhSoThucTe;
         this.doanhSoToiThieu = nv.doanhSoToiThieu;
     }
-    
+
     @Override
     public char xepLoai() {
-        if(doanhSoThucTe >= doanhSoToiThieu*2) return 'A';
-        if(doanhSoThucTe < doanhSoToiThieu*.5) return 'D';
-        if(doanhSoThucTe < doanhSoToiThieu) return 'C';
+        if (doanhSoThucTe >= doanhSoToiThieu * 2) {
+            return 'A';
+        }
+        if (doanhSoThucTe < doanhSoToiThieu * .5) {
+            return 'D';
+        }
+        if (doanhSoThucTe < doanhSoToiThieu) {
+            return 'C';
+        }
         return 'B';
     }
-    
+
     public double hoaHong() {
-        double hh = 0.15*(doanhSoThucTe - doanhSoToiThieu);
-        return (hh>0?hh:0);
+        double hh = 0.15 * (doanhSoThucTe - doanhSoToiThieu);
+        return (hh > 0 ? hh : 0);
     }
-    
+
     @Override
     public double getLuong() {
-        return super.getLuong()+hoaHong();
+        return super.getLuong() + hoaHong();
     }
 
     @Override
@@ -63,11 +69,11 @@ public class NhanVienKinhDoanh extends NhanVien {
     public void nhapThongTin() {
         super.nhapThongTin();
         System.out.print("Doanh so toi thieu: ");
-        doanhSoToiThieu = scan.nextInt();
+        doanhSoToiThieu = scan.nextDouble();
         System.out.print("Doanh so thuc te: ");
-        doanhSoThucTe = scan.nextInt();
+        doanhSoThucTe = scan.nextDouble();
     }
-    
+
     @Override
     public void xuatThongtin() {
         super.xuatThongtin();

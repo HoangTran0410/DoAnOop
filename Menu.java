@@ -23,6 +23,7 @@ public class Menu {
                 System.out.println("========= QUAN LY NHAN SU ===========");
                 System.out.println("1: Danh Sach Nhan Vien.");
                 System.out.println("2: Danh Sach Phong Ban.");
+                System.out.println("3: Thong Ke.");
                 System.out.println("0: THOAT.");
                 System.out.println("=====================================");
                 System.out.print("Lua chon: ");
@@ -34,6 +35,9 @@ public class Menu {
                         break;
                     case 2:
                         menuDanhSachPhongBan();
+                        break;
+                    case 3:
+                        menuThongKe();
                         break;
                     case 0:
                         exit = true;
@@ -188,7 +192,7 @@ public class Menu {
 
                                     if (dsnv_ten_sua.timKiemTheoMa(ma_muonsua) == null) {
                                         System.err.println("Ma vua nhap khong trung khop!");
-                                        
+
                                     } else {
                                         NhanVien nv = dsnv.timKiemTheoMa(ma_muonsua);
                                         System.out.println("\n\n");
@@ -300,7 +304,7 @@ public class Menu {
                         break;
                     case 2:
                         System.out.println("-------- Danh Sach Nhan Vien Cua Phong Ban ----------");
-                        System.out.println("Nhap ma phong ban muon xem: ");
+                        System.out.print("Nhap ma phong ban muon xem: ");
                         scan.nextLine();
                         String ma_muonxem = scan.nextLine();
                         PhongBan timThay = dspb.timKiemTheoMa(ma_muonxem);
@@ -395,5 +399,15 @@ public class Menu {
                 System.out.print("\n====================================================\n\n");
             }
         }
+    }
+    
+    public void menuThongKe() {
+        System.out.print("\n\n======================= Thong Ke =======================\n\n");
+        System.out.println("1. Nhan Vien. ");
+        System.out.println("2. Phong Ban. ");
+        System.out.println("0: QUAY VE.");
+                System.out.println("=====================================");
+                System.out.print("Lua chon: ");
+        
     }
 }
