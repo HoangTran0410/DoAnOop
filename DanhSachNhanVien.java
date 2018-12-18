@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class DanhSachNhanVien implements DanhSach, File {
-    
+
     Scanner scan = new Scanner(System.in);
 
     private NhanVien[] dsnv;
@@ -88,10 +88,10 @@ public class DanhSachNhanVien implements DanhSach, File {
     public void them(NhanVien nv) {
         dsnv = themNhanVien(nv, dsnv);
     }
-    
+
     public Boolean trungMa(String ma) {
-        for(NhanVien nv : dsnv) {
-            if(nv.getMaNhanVien().equals(ma)) {
+        for (NhanVien nv : dsnv) {
+            if (nv.getMaNhanVien().equals(ma)) {
                 return true;
             }
         }
@@ -103,47 +103,56 @@ public class DanhSachNhanVien implements DanhSach, File {
         System.out.print("Loai nhan vien muon them (1:quanly/ 2:kinhdoanh/ 3:sanxuat/ 0:quayve): ");
         int loai = scan.nextInt();
         Boolean trung;
-        switch(loai) {
-            case 0: break;
+        switch (loai) {
+            case 0:
+                break;
             case 1:
                 NhanVienQuanLy nv1 = new NhanVienQuanLy();
-                do{
+                do {
                     System.out.println("Nhap thong tin nhan vien quan ly:");
                     nv1.nhapMa();
                     trung = trungMa(nv1.getMaNhanVien());
-                    if(trung) System.err.println("Ma nhan vien bi trung!! Vui long nhap lai");
-                } while(trung);
-                
+                    if (trung) {
+                        System.err.println("Ma nhan vien bi trung!! Vui long nhap lai");
+                    }
+                } while (trung);
+
                 nv1.nhapThongTin();
                 them(nv1);
                 break;
-               
+
             case 2:
                 NhanVienKinhDoanh nv2 = new NhanVienKinhDoanh();
-                do{
+                do {
                     System.out.println("Nhap thong tin nhan vien kinh doanh:");
                     nv2.nhapMa();
                     trung = trungMa(nv2.getMaNhanVien());
-                    if(trung) System.err.println("Ma nhan vien bi trung!! Vui long nhap lai");
-                } while(trung);
-                
+                    if (trung) {
+                        System.err.println("Ma nhan vien bi trung!! Vui long nhap lai");
+                    }
+                } while (trung);
+
                 nv2.nhapThongTin();
                 them(nv2);
                 break;
-            
+
             case 3:
                 NhanVienSanXuat nv3 = new NhanVienSanXuat();
-                do{
+                do {
                     System.out.println("Nhap thong tin nhan vien san xuat:");
                     nv3.nhapMa();
                     trung = trungMa(nv3.getMaNhanVien());
-                    if(trung) System.err.println("Ma nhan vien bi trung!! Vui long nhap lai");
-                } while(trung);
+                    if (trung) {
+                        System.err.println("Ma nhan vien bi trung!! Vui long nhap lai");
+                    }
+                } while (trung);
                 nv3.nhapThongTin();
                 them(nv3);
-                
+
                 break;
-            default: System.out.println("Nhap sai lua chon!"); break;
+            default:
+                System.out.println("Nhap sai lua chon!");
+                break;
         }
     }
 
@@ -184,20 +193,25 @@ public class DanhSachNhanVien implements DanhSach, File {
     @Override
     public void xuat() {
         // https://docs.oracle.com/javase/tutorial/java/data/numberformat.html
+        if (dsnv.length == 0) {
+            System.err.println("Khong co nhan vien nao!");
+            return;
+        }
 
-        System.out.println("   MaNV           Ho va Ten            GioiTinh     NgaySinh     SoDienThoai  ");
-        System.out.println("----------------------------------------------------------------------------");
+        System.out.println("   MaNV           Ho va Ten            GioiTinh     NgaySinh     SoDienThoai            Dia Chi");
+        System.out.println("------------------------------------------------------------------------------------------------------------");
         for (NhanVien nv : dsnv) {
             // MaNV | HoTen | GioiTinh | NgaySinh | SoDienThoai
-            System.out.format("| %-6s| %-15s %-10s| %10s| %11s| %12s |\n",
+            System.out.format("| %-6s | %-15s %-10s | %10s | %11s | %12s | %25s |\n",
                     nv.getMaNhanVien(),
                     nv.getHo(),
                     nv.getTen(),
                     nv.getGioiTinh(),
-                    nv.getNgaySinh() + "/" + nv.getThangSinh() + "/" + nv.getNamSinh(),
-                    nv.getSoDienThoai());
+                    nv.getNgaySinh().getNgay() + "/" + nv.getNgaySinh().getThang() + "/" + nv.getNgaySinh().getNam(),
+                    nv.getSoDienThoai(),
+                    nv.getDiaChi());
         }
-        System.out.println("----------------------------------------------------------------------------");
+        System.out.println("------------------------------------------------------------------------------------------------------------");
     }
 
     public NhanVien timKiemTheoMa(String ma) {
@@ -265,8 +279,11 @@ public class DanhSachNhanVien implements DanhSach, File {
         return result;
     }
 
-    public int soLuong(String loaiNhanVien) {
+    public int getSoLuong(String loaiNhanVien) {
         NhanVien[] result;
+        if (loaiNhanVien.equalsIgnoreCase("tatca")) {
+            return dsnv.length;
+        }
         if (loaiNhanVien.equalsIgnoreCase("sanxuat")) {
             result = timKiemNhanVienSanXuat();
             return result.length;

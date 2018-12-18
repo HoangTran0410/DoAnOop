@@ -29,7 +29,7 @@ public class NhanVienQuanLy extends NhanVien {
 
     @Override
     public void ghiFile(DataOutputStream fileOut) throws IOException {
-        fileOut.writeUTF("quanly");
+        fileOut.writeUTF("quanly"); // ghi loại nhân viên trước, để lúc đọc file sẽ biết đang đoc dữ liệu của nhân viên gì
         super.ghiFile(fileOut);
         fileOut.writeUTF(maChucVu);
         fileOut.writeDouble(heSoPhuCapChucVu);
@@ -42,6 +42,12 @@ public class NhanVienQuanLy extends NhanVien {
         heSoPhuCapChucVu = fileIn.readDouble();
     }
 
+    @Override
+    public void nhap() {
+        super.nhapMa();
+        nhapThongTin();
+    }
+    
     @Override
     public void nhapThongTin() {
         super.nhapThongTin();

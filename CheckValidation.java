@@ -28,7 +28,7 @@ public class CheckValidation {
         Boolean valid;
         try {
             int sdt = parseInt(phone);
-            valid = phone.length() == 10;
+            valid = (phone.length() == 10);
             if(!valid) System.err.println("So dien thoai khong hop le!");
             
         }catch(NumberFormatException e){
@@ -42,5 +42,15 @@ public class CheckValidation {
         Boolean valid = gt.equalsIgnoreCase("nam") || gt.equalsIgnoreCase("nu");
         if(!valid) System.err.println("Gioi tinh khong hop le!");
         return valid;
+    }
+    
+    public static Boolean checkTrungMa_NhanVien() {
+        // mo file
+        // dong
+        return true;
+    }
+    
+    public static Boolean checkTonTai_PhongBan() {
+        return false;
     }
 }

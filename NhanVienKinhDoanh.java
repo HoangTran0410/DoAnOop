@@ -28,7 +28,7 @@ public class NhanVienKinhDoanh extends NhanVien {
 
     @Override
     public void ghiFile(DataOutputStream fileOut) throws IOException {
-        fileOut.writeUTF("kinhdoanh");
+        fileOut.writeUTF("kinhdoanh"); // ghi loại nhân viên trước, để lúc đọc file sẽ biết đang đoc dữ liệu của nhân viên gì
         super.ghiFile(fileOut);
         fileOut.writeInt(doanhSoToiThieu);
         fileOut.writeInt(doanhSoThucTe);
@@ -42,12 +42,18 @@ public class NhanVienKinhDoanh extends NhanVien {
     }
 
     @Override
-    public void nhap() {
-        super.nhap();
+    public void nhapThongTin() {
+        super.nhapThongTin();
         System.out.print("Doanh so toi thieu: ");
         doanhSoToiThieu = scan.nextInt();
         System.out.print("Doanh so thuc te: ");
         doanhSoThucTe = scan.nextInt();
+    }
+    
+    @Override
+    public void nhap() {
+        super.nhapMa();
+        nhapThongTin();
     }
 
     @Override
