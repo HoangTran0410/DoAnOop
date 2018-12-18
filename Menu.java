@@ -23,7 +23,6 @@ public class Menu {
                 System.out.println("========= QUAN LY NHAN SU ===========");
                 System.out.println("1: Danh Sach Nhan Vien.");
                 System.out.println("2: Danh Sach Phong Ban.");
-                System.out.println("3: Danh Sach Luong.");
                 System.out.println("0: THOAT.");
                 System.out.println("=====================================");
                 System.out.print("Lua chon: ");
@@ -35,9 +34,6 @@ public class Menu {
                         break;
                     case 2:
                         menuDanhSachPhongBan();
-                        break;
-                    case 3:
-                        System.err.println("Not available!");
                         break;
                     case 0:
                         exit = true;
@@ -399,9 +395,5 @@ public class Menu {
                 System.out.print("\n====================================================\n\n");
             }
         }
-    }
-    
-    public void menuDanhSachLuong() {
-        
     }
 }

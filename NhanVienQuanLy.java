@@ -13,10 +13,10 @@ public class NhanVienQuanLy extends NhanVien {
         super();
     }
 
-    public NhanVienQuanLy(String maNv, String maPB, String maHD,
+    public NhanVienQuanLy(String maNv, String maPB,
             String ho, String ten, String gt, String sdt, String diachi,
             MyDate ngaysinh, MyDate ngayvaolam, String maCv, double hsChucVu) {
-        super(maNv, maPB, maHD, ho, ten, gt, sdt, diachi, ngaysinh, ngayvaolam);
+        super(maNv, maPB, ho, ten, gt, sdt, diachi, ngaysinh, ngayvaolam);
         maChucVu = maCv;
         heSoPhuCapChucVu = hsChucVu;
     }
