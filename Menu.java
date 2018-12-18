@@ -400,14 +400,14 @@ public class Menu {
             }
         }
     }
-    
+
     public void menuThongKe() {
         System.out.print("\n\n======================= Thong Ke =======================\n\n");
         System.out.println("1. Nhan Vien. ");
         System.out.println("2. Phong Ban. ");
         System.out.println("0: QUAY VE.");
-                System.out.println("=====================================");
-                System.out.print("Lua chon: ");
-        
+        System.out.println("=====================================");
+        System.out.print("Lua chon: ");
+
     }
 }

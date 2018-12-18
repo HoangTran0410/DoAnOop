@@ -282,7 +282,7 @@ public class NhanVien implements NhapXuat {
     }
 
     public void xuatInline() {
-        System.out.format("| %-6s | %-15s %-10s | %10s | %11s | %12s | %25s | %10s |\n",
+        System.out.format("| %-6s | %-15s %-10s | %10s | %11s | %12s | %25s | %10.3f |\n",
                 maNhanVien,
                 ho,
                 ten,
