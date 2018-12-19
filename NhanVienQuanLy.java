@@ -87,7 +87,7 @@ public class NhanVienQuanLy extends NhanVien {
     public void xuat() {
         super.xuat();
         System.out.format("%-22s: %-50s\n", "Chuc vu", chucVu);
-        System.out.format("%-22s: %-50f\n", "He so phu cap chuc vu", heSoPhuCapChucVu);
+        System.out.format("%-22s: %-50.3f\n", "He so phu cap chuc vu", heSoPhuCapChucVu);
     }
     
     public static Boolean checkChucVu(String cv) {

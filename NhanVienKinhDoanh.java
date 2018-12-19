@@ -94,8 +94,8 @@ public class NhanVienKinhDoanh extends NhanVien {
     @Override
     public void xuatThongtin() {
         super.xuatThongtin();
-        System.out.format("%-22s: %-50f\n", "Doanh so toi thieu", doanhSoToiThieu);
-        System.out.format("%-22s: %-50f\n", "Doanh so thuc te", doanhSoThucTe);
+        System.out.format("%-22s: %-50.3f\n", "Doanh so toi thieu", doanhSoToiThieu);
+        System.out.format("%-22s: %-50.3f\n", "Doanh so thuc te", doanhSoThucTe);
     }
 
     public double getDoanhSoToiThieu() {
