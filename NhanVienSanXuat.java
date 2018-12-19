@@ -67,13 +67,22 @@ public class NhanVienSanXuat extends NhanVien {
     @Override
     public void nhapThongTin() {
         super.nhapThongTin();
-        System.out.print("So ngay nghi: ");
-        soNgayNghi = scan.nextInt();
+        System.out.print("So ngay nghi thang nay: ");
+        
+        Boolean valid;
+        do {
+            soNgayNghi = scan.nextInt();
+            valid = soNgayNghi > 0 && soNgayNghi < 30;
+            if(!valid) {
+                System.err.println("So ngay nghi khong phu hop!");
+            }
+        } while (!valid);
     }
         
-    public void xuatThongTin() {
-        super.xuatThongtin();
-        System.out.print("So ngay nghi: " + soNgayNghi);
+    @Override
+    public void xuat() {
+        super.xuat();
+        System.out.format("%-22s: %-50d\n", "So ngay nghi", soNgayNghi);
     }
 
     @Override

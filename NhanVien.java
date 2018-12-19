@@ -272,6 +272,12 @@ public class NhanVien implements NhapXuat {
                         validation = false;
                         System.err.println("Ngay nhap vao lon hon ngay hien tai!");
 
+                    } else if (nhapVao.nhoHon(ngaySinh)) {
+                        System.err.println("Ngay vao lam khong phu hop (< ngaysinh)");
+                        
+                    } else if(ngaySinh.khoangCach(nhapVao) < 18) {
+                        System.err.println("KHONG HOP LE! Nhan vien khong the vao lam khi chua du 18 tuoi!");
+                        
                     } else {
                         ngayVaoLam = new MyDate(ngay, thang, nam);
                     }
@@ -307,19 +313,21 @@ public class NhanVien implements NhapXuat {
     }
 
     public void xuatMa() {
-        System.out.println("Ma nhan vien: " + maNhanVien);
-        System.out.println("Ma phong ban: " + maPhongBan);
+        System.out.println("Ma nhan vien: " + maNhanVien + ".");
+        System.out.println("Ma phong ban: " + maPhongBan + ".");
     }
 
-    public void xuatThongtin() {
-        System.out.println("Ho va ten: " + ho + " " + ten);
-        System.out.println("Gioi tinh: " + (gioiTinh ? "Nam" : "Nu"));
-        System.out.println("Ngay sinh: " + ngaySinh.getNgay() + "/" + ngaySinh.getThang() + "/" + ngaySinh.getNam());
-        System.out.println("Ngay vao lam: " + ngayVaoLam.getNgay() + "/" + ngayVaoLam.getThang() + "/" + ngayVaoLam.getNam());
-        System.out.println("Tham nien lam viec: " + thamNienLamViec() + " nam.");
-        System.out.println("So dien thoai: " + soDienThoai);
-        System.out.println("Dia chi: " + diaChi);
-        System.out.format("Luong thang hien tai: %.3f trieu.\n", getLuong());
+    public void xuatThongtin() {        
+        System.out.format("%-22s: %-50s\n", "Ho va ten" , ho + " " + ten + ".");
+        System.out.format("%-22s: %-50s\n", "Gioi tinh" , (gioiTinh ? "Nam" : "Nu") + ".");
+        System.out.format("%-22s: %-50s\n", "Ngay sinh" , ngaySinh.getNgay() + "/" + ngaySinh.getThang() + "/" + ngaySinh.getNam() + ".");
+        System.out.format("%-22s: %-50s\n", "Ngay vao lam" , ngayVaoLam.getNgay() + "/" + ngayVaoLam.getThang() + "/" + ngayVaoLam.getNam() + ".");
+        System.out.format("%-22s: %-50s\n", "Tham nien lam viec" , thamNienLamViec() + " nam.");
+        System.out.format("%-22s: %-50s\n", "So dien thoai" , soDienThoai + ".");
+        System.out.format("%-22s: %-50s\n", "Dia chi" , diaChi + ".");
+        System.out.format("%-22s: %-50s\n", "Bac luong hien tai" , getBacLuong()+ ".");
+        System.out.format("%-22s: %-50s\n", "Xep loai thang nay" , xepLoai()+ ".");
+        System.out.format("%-22s: %-50.3f\n", "Luong thang hien tai", getLuong());
     }
 
     public String loaiNhanVien() {

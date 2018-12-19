@@ -70,7 +70,7 @@ public class Menu {
             System.out.println("6: Them Nhieu Nhan Vien.");
             System.out.println("7: Xoa Nhan Vien.");
             System.out.println("8: Sua Nhan Vien.");
-            System.out.println("9: Tim Kiem.");
+            System.out.println("9: Tim Kiem, Xem Chi Tiet Nhan Vien.");
             System.out.println("0: QUAY VE.");
             System.out.println("=====================================");
             System.out.print("Lua chon: ");
