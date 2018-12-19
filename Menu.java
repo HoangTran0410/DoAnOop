@@ -256,7 +256,7 @@ public class Menu {
                                 if (timThay == null) {
                                     System.err.println("Ma vua nhap khong trung khop!");
                                 } else {
-                                    System.out.println("\n--------------- " + timThay.loaiNhanVien() + "--------------- ");
+                                    System.out.println("\n--------------- " + timThay.loaiNhanVien() + " '" + timThay.getHo() + " " + timThay.getTen() + "' --------------- ");
                                     timThay.xuat();
                                     System.out.println("------------------------------------------------------------- ");
                                 }
@@ -411,6 +411,7 @@ public class Menu {
                         System.err.println("Chua co phong ban nao de tim!");
                         break;
                     }
+                    System.out.println("----------------- Tim Phong Ban -----------------");
                     System.out.print("Tim kiem theo (1:ten / 2:ma phong ban): ");
                     int loaitim = scan.nextInt();
                     scan.nextLine();
