@@ -60,15 +60,17 @@ public class MyDate {
     public Boolean nhoHon(MyDate other) {
         if(this.nam < other.nam) return true;
         if(this.thang < other.thang) return true;
-        if(this.ngay < other.ngay) return true;
-        return false;
+        return this.ngay < other.ngay;
     }
     
     public Boolean lonHon(MyDate other) {
         if(this.nam > other.nam) return true;
         if(this.thang > other.thang) return true;
-        if(this.ngay > other.ngay) return true;
-        return false;
+        return this.ngay > other.ngay;
+    }
+    
+    public Boolean equal(MyDate other) {
+        return this.nam == other.nam && this.thang == other.thang && this.ngay == other.ngay;
     }
 
     public void xuat() {
