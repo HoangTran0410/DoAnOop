@@ -27,6 +27,7 @@ public class CheckValidation {
         Boolean valid;
         try {
             long sdt = Long.parseLong(phone);
+            
             valid = (phone.length() == 10);
             if (!valid) {
                 System.err.println("So dien thoai khong hop le!");

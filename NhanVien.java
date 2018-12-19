@@ -82,8 +82,9 @@ public class NhanVien implements NhapXuat {
     public double getLuong() {
         return LUONG_CO_BAN * HE_SO_LUONG_LIST[getBacLuong()];
     }
-
     //    End luong
+    
+    
     public NhanVien(String maNhanVien, String maPB,
             String ho, String ten, String gt, String sdt, String diachi,
             MyDate ngaysinh, MyDate ngayvaolam) {
@@ -118,9 +119,11 @@ public class NhanVien implements NhapXuat {
         fileOut.writeUTF(soDienThoai);
         fileOut.writeUTF(diaChi);
         fileOut.writeBoolean(gioiTinh);
+        
         fileOut.writeInt(ngaySinh.getNgay());
         fileOut.writeInt(ngaySinh.getThang());
         fileOut.writeInt(ngaySinh.getNam());
+        
         fileOut.writeInt(ngayVaoLam.getNgay());
         fileOut.writeInt(ngayVaoLam.getThang());
         fileOut.writeInt(ngayVaoLam.getNam());

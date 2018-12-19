@@ -56,6 +56,7 @@ public class DanhSachNhanVien implements DanhSach, File {
         try {
             try (DataInputStream fileIn = new DataInputStream(new FileInputStream(tenFile))) {
                 dsnv = new NhanVien[0];
+                
                 while (fileIn.available() > 0) {
                     String loaiNhanVien = fileIn.readUTF();
 
