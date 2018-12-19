@@ -78,7 +78,6 @@ public class DanhSachNhanVien implements DanhSach, File {
                         them(nv);
                     }
                 }
-                System.out.println("DOC FILE THANH CONG.");
             }
         } catch (IOException e) {
             System.err.println("Loi khi DOC FILE "+ tenFile +"! File moi se duoc tao tu dong.");

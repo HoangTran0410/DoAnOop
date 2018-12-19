@@ -71,7 +71,7 @@ public class Menu {
             System.out.println("7: Xoa Nhan Vien.");
             System.out.println("8: Sua Nhan Vien.");
             System.out.println("9: Tim Kiem.");
-            System.out.println("0: LUU va QUAY VE.");
+            System.out.println("0: QUAY VE.");
             System.out.println("=====================================");
             System.out.print("Lua chon: ");
             int luachon = scan.nextInt();
@@ -292,7 +292,7 @@ public class Menu {
             System.out.println("4: Sua Phong Ban.");
             System.out.println("5: Xoa Phong Ban.");
             System.out.println("6: Tim Kiem.");
-            System.out.println("0: LUU va QUAY VE.");
+            System.out.println("0: QUAY VE.");
             System.out.println("=====================================");
             System.out.print("Lua chon: ");
             int luachon = scan.nextInt();
@@ -402,7 +402,7 @@ public class Menu {
                         // luu vao file
                         dspb.docFile(FILE_DANHSACHPHONGBAN);
                     } else {
-                        System.err.println("\nKhong tim thay phong ban duoc chi dinh !");
+                        System.err.println("\nKhonghong tim thay phong ban duoc chi dinh !");
                     }
                     break;
 

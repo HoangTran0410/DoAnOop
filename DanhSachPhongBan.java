@@ -36,7 +36,6 @@ public class DanhSachPhongBan implements DanhSach, File {
                     pb.docFile(fileIn);
                     them(pb);
                 }
-                System.out.println("DOC FILE THANH CONG.");
             }
         } catch (IOException e) {
             System.err.println("Loi khi DOC FILE "+ tenFile +"! File moi se dươc tao tu dong.");
