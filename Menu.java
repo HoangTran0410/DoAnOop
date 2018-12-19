@@ -325,7 +325,7 @@ public class Menu {
                     System.out.println("----------------- Them Phong Ban -----------------");
                     dspb.them();
                     // luu vao file
-                    dspb.docFile(FILE_DANHSACHPHONGBAN);
+                    dspb.ghiDe(FILE_DANHSACHPHONGBAN);
                     break;
 
                 case 4:
@@ -400,7 +400,7 @@ public class Menu {
                     if (dspb.timKiemTheoMa(mapb) != null) {
                         dspb.xoaTheoMa(mapb);
                         // luu vao file
-                        dspb.docFile(FILE_DANHSACHPHONGBAN);
+                        dspb.ghiDe(FILE_DANHSACHPHONGBAN);
                     } else {
                         System.err.println("\nKhonghong tim thay phong ban duoc chi dinh !");
                     }
