@@ -55,6 +55,7 @@ public class PhongBan implements NhapXuat {
             maPhongBan = scan.nextLine();
             valid = !CheckValidation.checkTrungMa_PhongBan(maPhongBan);
             if(!valid) System.err.println("Trung ma! Vui long nhap lai.");
+            
         } while (maPhongBan.trim().equals("") || !valid);
     }
     
@@ -85,17 +86,7 @@ public class PhongBan implements NhapXuat {
     
     public NhanVien[] getDanhSachNhanVien() {
         DanhSachNhanVien dsnv = new DanhSachNhanVien();
-        
-        try {
-            dsnv.docFile(Menu.FILE_DANHSACHNHANVIEN);
-        } catch (IOException ex) {
-            System.err.println("Khong the doc file danh sach nhan vien! File moi se duoc tao tu dong");
-            try {
-                dsnv.ghiDe(Menu.FILE_DANHSACHNHANVIEN);
-            } catch (IOException ex1) {
-                System.err.println("Khong the tao file danh sach sinh vien!");
-            }
-        }
+        dsnv.docFile(Menu.FILE_DANHSACHNHANVIEN);
         
         return dsnv.timKiemTheoPhongBan(this.maPhongBan);
     }

@@ -27,40 +27,47 @@ public class DanhSachPhongBan implements DanhSach, File {
     }
 
     @Override
-    public void docFile(String tenFile) throws FileNotFoundException, IOException {
-        DataInputStream fileIn = new DataInputStream(new FileInputStream(tenFile));
+    public void docFile(String tenFile) {
         try {
-            dspb = new PhongBan[0];
-            while (fileIn.available() > 0) {
-                PhongBan pb = new PhongBan();
-                pb.docFile(fileIn);
-                them(pb);
+            try (DataInputStream fileIn = new DataInputStream(new FileInputStream(tenFile))) {
+                dspb = new PhongBan[0];
+                while (fileIn.available() > 0) {
+                    PhongBan pb = new PhongBan();
+                    pb.docFile(fileIn);
+                    them(pb);
+                }
+                System.out.println("DOC FILE THANH CONG.");
             }
-        } finally {
-            fileIn.close();
+        } catch (IOException e) {
+            System.err.println("Loi khi DOC FILE "+ tenFile +"! File moi se dươc tao tu dong.");
+            ghiDe(tenFile);
         }
+
     }
 
     @Override
-    public void ghiThem(String tenFile) throws FileNotFoundException, IOException {
+    public void ghiThem(String tenFile) {
         ghiFile(tenFile, true);
     }
 
     @Override
-    public void ghiDe(String tenFile) throws FileNotFoundException, IOException {
+    public void ghiDe(String tenFile) {
         ghiFile(tenFile, false);
     }
 
     @Override
-    public void ghiFile(String tenFile, Boolean ghiThem) throws FileNotFoundException, IOException {
-        DataOutputStream fileOut = new DataOutputStream(new FileOutputStream(tenFile, ghiThem));
+    public void ghiFile(String tenFile, Boolean ghiThem) {
         try {
-            for (PhongBan pb : dspb) {
-                pb.ghiFile(fileOut);
+            try (DataOutputStream fileOut = new DataOutputStream(new FileOutputStream(tenFile, ghiThem))) {
+                for (PhongBan pb : dspb) {
+                    pb.ghiFile(fileOut);
+                }
+                System.out.println("GHI FILE THANH CONG.");
             }
-        } finally {
-            fileOut.close();
+        } catch (IOException e) {
+            System.err.println("Loi khi GHI FILE "+ tenFile +"!");
         }
+
     }
 
     private PhongBan[] themPhongBan(PhongBan pb, PhongBan[] list) {
@@ -113,11 +120,7 @@ public class DanhSachPhongBan implements DanhSach, File {
                 pb.setMaPhongBan(pb.getMaPhongBan() + " sua chua xong!");
 
                 // lưu vào file (do hàm check đọc từ file)
-                try {
-                    ghiDe(Menu.FILE_DANHSACHPHONGBAN);
-                } catch (IOException ex) {
-                    Logger.getLogger(DanhSachNhanVien.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                ghiDe(Menu.FILE_DANHSACHPHONGBAN);
 
                 // nhập giá trị mới
                 pb.nhap();

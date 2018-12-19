@@ -308,10 +308,11 @@ public class NhanVien implements NhapXuat {
         System.out.println("Ho va ten: " + ho + " " + ten);
         System.out.println("Gioi tinh: " + (gioiTinh ? "Nam" : "Nu"));
         System.out.println("Ngay sinh: " + ngaySinh.getNgay() + "/" + ngaySinh.getThang() + "/" + ngaySinh.getNam());
+        System.out.println("Ngay vao lam: " + ngayVaoLam.getNgay() + "/" + ngayVaoLam.getThang() + "/" + ngayVaoLam.getNam());
+        System.out.println("Tham nien lam viec: "+thamNienLamViec()+" nam.");
         System.out.println("So dien thoai: " + soDienThoai);
         System.out.println("Dia chi: " + diaChi);
-        System.out.println("Ngay vao lam: " + ngayVaoLam.getNgay() + "/" + ngayVaoLam.getThang() + "/" + ngayVaoLam.getNam());
-        System.out.println("Luong hien tai: " + getLuong() + " trieu.");
+        System.out.format("Luong thang hien tai: %.3f trieu.\n" , getLuong());
     }
 
     public String loaiNhanVien() {

@@ -50,29 +50,15 @@ public class CheckValidation {
 
     public static Boolean checkTrungMa_NhanVien(String ma) {
         DanhSachNhanVien dsnv = new DanhSachNhanVien();
-
-        try {
-            dsnv.docFile(Menu.FILE_DANHSACHNHANVIEN);
-        } catch (IOException e) {
-            System.err.println("Loi doc file danh sach nhan vien de check trung ma!");
-        }
+        
+        dsnv.docFile(Menu.FILE_DANHSACHNHANVIEN);
 
         return dsnv.timKiemTheoMa(ma) != null;
     }
 
     public static Boolean checkTrungMa_PhongBan(String ma) {
         DanhSachPhongBan dspb = new DanhSachPhongBan();
-
-        try {
-            dspb.docFile(Menu.FILE_DANHSACHPHONGBAN);
-        } catch (IOException e) {
-            try {
-                dspb.ghiDe(Menu.FILE_DANHSACHPHONGBAN);
-                System.err.println("Loi doc file danh sach phong ban de check trung ma!");
-            } catch (IOException ex) {
-                System.err.println("Khong the tao file danh sach phong ban!");
-            }
-        }
+        dspb.docFile(Menu.FILE_DANHSACHPHONGBAN);
 
         return dspb.timKiemTheoMa(ma) != null;
     }

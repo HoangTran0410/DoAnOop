@@ -30,55 +30,61 @@ public class DanhSachNhanVien implements DanhSach, File {
     }
 
     @Override
-    public void ghiFile(String tenFile, Boolean ghiThem) throws FileNotFoundException, IOException {
-        DataOutputStream fileOut = new DataOutputStream(new FileOutputStream(tenFile, ghiThem));
+    public void ghiFile(String tenFile, Boolean ghiThem) {
         try {
-            for (NhanVien nv : dsnv) {
-                nv.ghiFile(fileOut);
+            try (DataOutputStream fileOut = new DataOutputStream(new FileOutputStream(tenFile, ghiThem))) {
+                for (NhanVien nv : dsnv) {
+                    nv.ghiFile(fileOut);
+                }
+                System.out.println("THANH CONG.");
             }
-        } finally {
-            fileOut.close();
+        } catch (IOException e) {
+            System.err.println("Loi khi GHI FILE "+ tenFile +"!");
         }
     }
 
     @Override
-    public void ghiThem(String tenFile) throws FileNotFoundException, IOException {
+    public void ghiThem(String tenFile) {
         ghiFile(tenFile, true);
     }
 
     @Override
-    public void ghiDe(String tenFile) throws FileNotFoundException, IOException {
+    public void ghiDe(String tenFile) {
         ghiFile(tenFile, false);
     }
 
     // https://stackoverflow.com/questions/16945335/java-need-a-while-loop-to-reach-eof-i-e-while-eof-keep-parsing
     @Override
-    public void docFile(String tenFile) throws FileNotFoundException, IOException {
-        DataInputStream fileIn = new DataInputStream(new FileInputStream(tenFile));
+    public void docFile(String tenFile) {
         try {
-            dsnv = new NhanVien[0];
-            while (fileIn.available() > 0) {
-                String loaiNhanVien = fileIn.readUTF();
+            try (DataInputStream fileIn = new DataInputStream(new FileInputStream(tenFile))) {
+                dsnv = new NhanVien[0];
+                while (fileIn.available() > 0) {
+                    String loaiNhanVien = fileIn.readUTF();
 
-                if (loaiNhanVien.equalsIgnoreCase("quanly")) {
-                    NhanVienQuanLy nv = new NhanVienQuanLy();
-                    nv.docFile(fileIn);
-                    them(nv);
+                    if (loaiNhanVien.equalsIgnoreCase("quanly")) {
+                        NhanVienQuanLy nv = new NhanVienQuanLy();
+                        nv.docFile(fileIn);
+                        them(nv);
 
-                } else if (loaiNhanVien.equalsIgnoreCase("kinhdoanh")) {
-                    NhanVienKinhDoanh nv = new NhanVienKinhDoanh();
-                    nv.docFile(fileIn);
-                    them(nv);
+                    } else if (loaiNhanVien.equalsIgnoreCase("kinhdoanh")) {
+                        NhanVienKinhDoanh nv = new NhanVienKinhDoanh();
+                        nv.docFile(fileIn);
+                        them(nv);
 
-                } else if (loaiNhanVien.equalsIgnoreCase("sanxuat")) {
-                    NhanVienSanXuat nv = new NhanVienSanXuat();
-                    nv.docFile(fileIn);
-                    them(nv);
+                    } else if (loaiNhanVien.equalsIgnoreCase("sanxuat")) {
+                        NhanVienSanXuat nv = new NhanVienSanXuat();
+                        nv.docFile(fileIn);
+                        them(nv);
+                    }
                 }
+                System.out.println("DOC FILE THANH CONG.");
             }
-        } finally {
-            fileIn.close();
+        } catch (IOException e) {
+            System.err.println("Loi khi DOC FILE "+ tenFile +"! File moi se duoc tao tu dong.");
+            ghiDe(tenFile);
         }
+
     }
 
     private NhanVien[] themNhanVien(NhanVien nv, NhanVien[] list) {
@@ -191,11 +197,7 @@ public class DanhSachNhanVien implements DanhSach, File {
                 nv.setMaNhanVien(nv.getMaNhanVien() + " sua chua xong!");
 
                 // lưu vào file (do hàm check đọc từ file)
-                try {
-                    ghiDe(Menu.FILE_DANHSACHNHANVIEN);
-                } catch (IOException ex) {
-                    Logger.getLogger(DanhSachNhanVien.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                ghiDe(Menu.FILE_DANHSACHNHANVIEN);
 
                 // nhập lại giá trị
                 nv.nhap();
@@ -211,12 +213,12 @@ public class DanhSachNhanVien implements DanhSach, File {
             return;
         }
 
-        System.out.println("   MaNV           Ho va Ten            GioiTinh     NgaySinh     SoDienThoai            Dia Chi               Luong(trieu)");
-        System.out.println("--------------------------------------------------------------------------------------------------------------------------");
+        System.out.println("   MaNV           Ho va Ten            GioiTinh     NgaySinh     SoDienThoai            Dia Chi               Luong thang");
+        System.out.println("---------------------------------------------------------------------------------------------------------------------------");
         for (NhanVien nv : dsnv) {
             nv.xuatInline();
         }
-        System.out.println("---------------------------------------------------------------------------------------------------------------------------");
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------");
     }
 
     public NhanVien timKiemTheoMa(String ma) {
