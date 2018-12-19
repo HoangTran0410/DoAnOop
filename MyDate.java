@@ -57,14 +57,14 @@ public class MyDate {
         return -1;
     }
     
-    public Boolean isBefore(MyDate other) {
+    public Boolean nhoHon(MyDate other) {
         if(this.nam < other.nam) return true;
         if(this.thang < other.thang) return true;
         if(this.ngay < other.ngay) return true;
         return false;
     }
     
-    public Boolean isAfter(MyDate other) {
+    public Boolean lonHon(MyDate other) {
         if(this.nam > other.nam) return true;
         if(this.thang > other.thang) return true;
         if(this.ngay > other.ngay) return true;
@@ -73,6 +73,11 @@ public class MyDate {
 
     public void xuat() {
         System.out.println(CheckValidation.formatDate_NumToString(ngay, thang, nam));
+    }
+    
+    @Override
+    public String toString() {
+        return CheckValidation.formatDate_NumToString(ngay, thang, nam);
     }
 
     public int getNgay() {

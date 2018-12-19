@@ -225,13 +225,16 @@ public class NhanVien implements NhapXuat {
                 validation = CheckValidation.isDateValid(CheckValidation.formatDate_NumToString(ngay, thang, nam));
                 if (validation) {
                     MyDate now = new MyDate();
-                    if (now.isBefore(new MyDate(ngay, thang, nam))) {
+                    MyDate nhapVao = new MyDate(ngay, thang, nam);
+                    int soTuoi = nhapVao.khoangCach(now);
+                    
+                    if (now.nhoHon(nhapVao)) {
                         validation = false;
-                        System.err.println("Ngay nhap vao lon hon ngay hien tai!");
+                        System.err.print("Ngay nhap vao lon hon ngay hien tai! "+nhapVao.toString()+" > "+now.toString());
 
-                    } else if (new MyDate(ngay, thang, nam).khoangCach(now) <= 18) {
+                    } else if (soTuoi <= 18) {
                         validation = false;
-                        System.err.println("Nhan vien duoi 18 tuoi!!");
+                        System.err.println("Nhan vien duoi 18 tuoi!! (" + soTuoi + ")");
 
                     } else {
                         ngaySinh = new MyDate(ngay, thang, nam);
@@ -263,7 +266,9 @@ public class NhanVien implements NhapXuat {
                 validation = CheckValidation.isDateValid(CheckValidation.formatDate_NumToString(ngay, thang, nam));
                 if (validation) {
                     MyDate now = new MyDate();
-                    if (now.isBefore(new MyDate(ngay, thang, nam))) {
+                    MyDate nhapVao = new MyDate(ngay, thang, nam);
+                    
+                    if (now.nhoHon(nhapVao)) {
                         validation = false;
                         System.err.println("Ngay nhap vao lon hon ngay hien tai!");
 
