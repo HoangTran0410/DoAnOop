@@ -5,11 +5,8 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class DanhSachNhanVien implements DanhSach, File {
 
@@ -39,7 +36,7 @@ public class DanhSachNhanVien implements DanhSach, File {
                 System.out.println("GHI FILE THANH CONG.");
             }
         } catch (IOException e) {
-            System.err.println("Loi khi GHI FILE "+ tenFile +"!");
+            System.err.println("Loi khi GHI FILE " + tenFile + "!");
         }
     }
 
@@ -80,7 +77,7 @@ public class DanhSachNhanVien implements DanhSach, File {
                 }
             }
         } catch (IOException e) {
-            System.err.println("Loi khi DOC FILE "+ tenFile +"! File moi se duoc tao tu dong.");
+            System.err.println("Loi khi DOC FILE " + tenFile + "! File moi se duoc tao tu dong.");
             ghiDe(tenFile);
         }
 
@@ -190,17 +187,100 @@ public class DanhSachNhanVien implements DanhSach, File {
 
     @Override
     public void suaTheoMa(String ma) {
+//        for (NhanVien nv : dsnv) {
+//            if (nv.getMaNhanVien().equals(ma)) {
+//                nv.nhapThongTin();
+//            }
+//        }
         for (NhanVien nv : dsnv) {
             if (nv.getMaNhanVien().equals(ma)) {
-                // xóa giá trị cũ
-                nv.setMaNhanVien(nv.getMaNhanVien() + " sua chua xong!");
+                Boolean exit = false;
+                while (!exit) {
+                    int sua;
+                    Scanner s = new Scanner(System.in);
+                    System.out.println("------- Ban Muon Sua --------- ");
+                    System.out.println("1. Sua Ho ");
+                    System.out.println("2. Sua Ten");
+                    System.out.println("3. Sua gioi tinh");
+                    System.out.println("4. Sua ngay sinh");
+                    System.out.println("5. Sua ngay vao lam");
+                    System.out.println("6. Sua so dien thoai");
+                    System.out.println("7. Sua dia chi");
+                    System.out.println("0. QUAY VE");
+                    System.out.println("-----------------------");
+                    System.out.print("Lua chon: ");
+                    sua = s.nextInt();
+                    s.nextLine();
+                    switch (sua) {
+                        case 1: {
+                            String ho;
+                            do {
+                                System.out.print("Ho: ");
+                                nv.setHo(MyString.toUpperCaseFirstLetter_AllWord(scan.nextLine()));
+                                ho = nv.getHo();
+                            } while (ho.trim().equals(""));
+                            break;
+                        }
+                        case 2: {
+                            String ten;
+                            do {
+                                System.out.print("Ten: ");
+                                nv.setTen(MyString.toUpperCaseFirstLetter_AllWord(scan.nextLine()));
+                                ten = nv.getTen();
+                            } while (ten.trim().equals(""));
+                            break;
+                        }
 
-                // lưu vào file (do hàm check đọc từ file)
-                ghiDe(Menu.FILE_DANHSACHNHANVIEN);
+                        case 3: {
+                            String gtNhap;
+                            do {
+                                System.out.print("Gioi tinh (nam/nu): ");
+                                gtNhap = scan.nextLine();
+                                nv.setGioiTinh(gtNhap);
 
-                // nhập lại giá trị
-                nv.nhap();
+                            } while (!CheckValidation.isSexValid(gtNhap));
+                            break;
+                        }
+                        case 4: {
+                            nv.nhapNgaySinh();
+                            scan.nextLine();
+                            break;
+                        }
+                        case 5: {
+                            nv.nhapNgayVaoLam();
+                            scan.nextLine();
+                            break;
+                        }
+                        case 6: {
+                            String soDienThoai;
+                            do {
+                                System.out.print("So dien thoai (10 chu so): ");
+                                soDienThoai = scan.nextLine();
+                                nv.setSoDienThoai(soDienThoai);
+                            } while (soDienThoai.trim().equals("") || !CheckValidation.isPhoneValid(soDienThoai));
+                            break;
+                        }
+                        case 7: {
+                            String diaChi;
+                            do {
+                                System.out.print("Dia chi: ");
+                                diaChi = scan.nextLine();
+                                nv.setDiaChi(diaChi);
+                            } while (diaChi.trim().equals(""));
+                            break;
+                        }
+                        case 0:
+                            exit = true;
+                            break;
+
+                        default:
+                            System.err.println("Lua chon khong dung!");
+                    }
+                }
+
+                break;
             }
+
         }
     }
 

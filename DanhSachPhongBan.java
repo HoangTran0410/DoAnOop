@@ -3,12 +3,9 @@ package DoAnOop;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class DanhSachPhongBan implements DanhSach, File {
 
@@ -115,14 +112,14 @@ public class DanhSachPhongBan implements DanhSach, File {
     public void suaTheoMa(String ma) {
         for (PhongBan pb : dspb) {
             if (pb.getMaPhongBan().toLowerCase().contains(ma.toLowerCase())) {
-                // xóa giá trị cũ
-                pb.setMaPhongBan(pb.getMaPhongBan() + " sua chua xong!");
-
-                // lưu vào file (do hàm check đọc từ file)
-                ghiDe(Menu.FILE_DANHSACHPHONGBAN);
+//                // xóa giá trị cũ
+//                pb.setMaPhongBan(pb.getMaPhongBan() + " sua chua xong!");
+//
+//                // lưu vào file (do hàm check đọc từ file)
+//                ghiDe(Menu.FILE_DANHSACHPHONGBAN);
 
                 // nhập giá trị mới
-                pb.nhap();
+                pb.nhapThongTin();
             }
         }
     }

@@ -20,9 +20,9 @@ public class Menu {
             while (!exit) {
                 System.out.println("\n\n");
                 System.out.println("========= QUAN LY NHAN SU ===========");
-                System.out.println("1: Danh Sach Nhan Vien.");
-                System.out.println("2: Danh Sach Phong Ban.");
-                System.out.println("3: Thong Ke.");
+                System.out.println("1: Menu Nhan Vien.");
+                System.out.println("2: Menu Phong Ban.");
+                System.out.println("3: Menu Thong Ke.");
                 System.out.println("0: THOAT.");
                 System.out.println("=====================================");
                 System.out.print("Lua chon: ");
@@ -208,11 +208,6 @@ public class Menu {
                                     nv.xuat();
                                     System.out.println("------------------------------------------");
 
-                                    System.out.print("Dong y muon sua? (1:oke / 0:huy): ");
-                                    int luachon_muonsua = scan.nextInt();
-                                    if (luachon_muonsua == 0) {
-                                        break;
-                                    }
                                     dsnv.suaTheoMa(ma_muonsua);
 
                                     // lưu lại vào file
@@ -270,7 +265,7 @@ public class Menu {
                 case 0:
                     exit = true;
                     break;
-                    
+
                 default:
                     System.err.println("Lua chon khong dung!");
                     break;
@@ -304,7 +299,7 @@ public class Menu {
                     break;
 
                 case 2:
-                    if(dspb.getSoLuong() == 0) {
+                    if (dspb.getSoLuong() == 0) {
                         System.err.println("Chua co phong ban nao!");
                         break;
                     }
@@ -329,7 +324,7 @@ public class Menu {
                     break;
 
                 case 4:
-                    if(dspb.getSoLuong() == 0) {
+                    if (dspb.getSoLuong() == 0) {
                         System.err.println("Chua co phong ban nao de sua!");
                         break;
                     }
@@ -388,7 +383,7 @@ public class Menu {
                     }
 
                 case 5:
-                    if(dspb.getSoLuong() == 0) {
+                    if (dspb.getSoLuong() == 0) {
                         System.err.println("Chua co phong ban nao de xoa!");
                         break;
                     }
@@ -407,7 +402,7 @@ public class Menu {
                     break;
 
                 case 6:
-                    if(dspb.getSoLuong() == 0) {
+                    if (dspb.getSoLuong() == 0) {
                         System.err.println("Chua co phong ban nao de tim!");
                         break;
                     }
@@ -458,12 +453,60 @@ public class Menu {
     }
 
     public void menuThongKe() {
-        System.out.print("\n\n======================= Thong Ke =======================\n\n");
-        System.out.println("1. Nhan Vien. ");
-        System.out.println("2. Phong Ban. ");
-        System.out.println("0: QUAY VE.");
-        System.out.println("=====================================");
-        System.out.print("Lua chon: ");
 
+        Boolean exit = false;
+        while (!exit) {
+            System.out.println("\n\n============= Thong Ke =============");
+            System.out.println("1. Thong Ke Nhan Vien. ");
+            System.out.println("2. Thong Ke Phong Ban. ");
+            System.out.println("0: QUAY VE.");
+            System.out.println("=======================================");
+            System.out.print("Lua chon: ");
+            int luachon = scan.nextInt();
+            switch (luachon) {
+                case 1:
+                    System.out.println("\n\n------------- Thong Ke Nhan Vien -------------");
+                    thongKeNhanVien();
+                    break;
+                case 2:
+                    System.out.println("\n\n------------- Thong Ke Phong Ban -------------");
+                    thongKePhongBan();
+                    break;
+                case 0:
+                    exit = true;
+                    break;
+                default:
+                    System.err.println("Lua chon khong dung!");
+                    break;
+            }
+        }
+    }
+
+    //thong ke so luong nhan vien , so luong tung loai nhan vien , so luong nhan vien co bac luong >=3
+    //thong ke phong ban nhieu nhan vien nhat
+    //thong ke so nhan vien nam va so nhan vien nu
+    public void thongKeNhanVien() {
+        DanhSachNhanVien dsnv = new DanhSachNhanVien();
+        NhanVien nv = new NhanVien();
+        dsnv.docFile(FILE_DANHSACHNHANVIEN);
+
+        System.out.println("Tong so luong nhan vien : " + dsnv.getSoLuong("tatca") + " nguoi");
+        System.out.println("+ Quan Ly    : " + dsnv.getSoLuong("quanly") + " nguoi.");
+        System.out.println("+ Kinh Doanh : " + dsnv.getSoLuong("kinhdoanh") + " nguoi.");
+        System.out.println("+ San Xuat   : " + dsnv.getSoLuong("sanxuat") + " nguoi.");
+    }
+
+    public void thongKePhongBan() {
+        DanhSachPhongBan dspb = new DanhSachPhongBan();
+        dspb.docFile(FILE_DANHSACHPHONGBAN);
+        System.out.println("SO LUONG PHONG BAN: " + dspb.getSoLuong() + " phong");
+        
+        PhongBan[] mangPb = dspb.getDanhSach();
+        for (PhongBan pb : mangPb) {
+            DanhSachNhanVien dsnv_trongpb = new DanhSachNhanVien(pb.getDanhSachNhanVien());
+            System.out.println("\n\n--------------------------------------- Danh Sach Nhan Vien Phong '" + pb.getTenPhongBan() + "' ---------------------------------------\n");
+            dsnv_trongpb.xuat();
+            System.out.println("++ So Luong Nhan Vien Trong Phong '" + pb.getTenPhongBan() + "': " + dsnv_trongpb.getSoLuong("tatca"));
+        }
     }
 }

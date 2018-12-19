@@ -179,7 +179,7 @@ public class NhanVien implements NhapXuat {
             System.out.print("Ho: ");
             ho = MyString.toUpperCaseFirstLetter_AllWord(scan.nextLine());
         } while (ho.trim().equals(""));
-        
+
         do {
             System.out.print("Ten: ");
             ten = MyString.toUpperCaseFirstLetter(scan.nextLine());
@@ -227,10 +227,10 @@ public class NhanVien implements NhapXuat {
                     MyDate now = new MyDate();
                     MyDate nhapVao = new MyDate(ngay, thang, nam);
                     int soTuoi = nhapVao.khoangCach(now);
-                    
-                    if (now.nhoHon(nhapVao)) {
+
+                    if (nhapVao.lonHon(now)) {
                         validation = false;
-                        System.err.print("Ngay nhap vao lon hon ngay hien tai! "+nhapVao.toString()+" > "+now.toString());
+                        System.err.print("Ngay nhap vao lon hon ngay hien tai! " + nhapVao.toString() + " > " + now.toString());
 
                     } else if (soTuoi <= 18) {
                         validation = false;
@@ -267,17 +267,19 @@ public class NhanVien implements NhapXuat {
                 if (validation) {
                     MyDate now = new MyDate();
                     MyDate nhapVao = new MyDate(ngay, thang, nam);
-                    
-                    if (now.nhoHon(nhapVao)) {
+
+                    if (nhapVao.lonHon(now)) {
                         validation = false;
                         System.err.println("Ngay nhap vao lon hon ngay hien tai!");
 
                     } else if (nhapVao.nhoHon(ngaySinh)) {
+                        validation = false;
                         System.err.println("Ngay vao lam khong phu hop (< ngaysinh)");
-                        
-                    } else if(ngaySinh.khoangCach(nhapVao) < 18) {
+
+                    } else if (ngaySinh.khoangCach(nhapVao) < 18) {
+                        validation = false;
                         System.err.println("KHONG HOP LE! Nhan vien khong the vao lam khi chua du 18 tuoi!");
-                        
+
                     } else {
                         ngayVaoLam = new MyDate(ngay, thang, nam);
                     }
@@ -313,20 +315,20 @@ public class NhanVien implements NhapXuat {
     }
 
     public void xuatMa() {
-        System.out.println("Ma nhan vien: " + maNhanVien + ".");
-        System.out.println("Ma phong ban: " + maPhongBan + ".");
+        System.out.format("%-22s: %-50s\n", "Ma nhan vien", maNhanVien);
+        System.out.format("%-22s: %-50s\n", "Ma phong ban", maPhongBan);
     }
 
-    public void xuatThongtin() {        
-        System.out.format("%-22s: %-50s\n", "Ho va ten" , ho + " " + ten + ".");
-        System.out.format("%-22s: %-50s\n", "Gioi tinh" , (gioiTinh ? "Nam" : "Nu") + ".");
-        System.out.format("%-22s: %-50s\n", "Ngay sinh" , ngaySinh.getNgay() + "/" + ngaySinh.getThang() + "/" + ngaySinh.getNam() + ".");
-        System.out.format("%-22s: %-50s\n", "Ngay vao lam" , ngayVaoLam.getNgay() + "/" + ngayVaoLam.getThang() + "/" + ngayVaoLam.getNam() + ".");
-        System.out.format("%-22s: %-50s\n", "Tham nien lam viec" , thamNienLamViec() + " nam.");
-        System.out.format("%-22s: %-50s\n", "So dien thoai" , soDienThoai + ".");
-        System.out.format("%-22s: %-50s\n", "Dia chi" , diaChi + ".");
-        System.out.format("%-22s: %-50s\n", "Bac luong hien tai" , getBacLuong()+ ".");
-        System.out.format("%-22s: %-50s\n", "Xep loai thang nay" , xepLoai()+ ".");
+    public void xuatThongtin() {
+        System.out.format("%-22s: %-50s\n", "Ho va ten", ho + " " + ten + ".");
+        System.out.format("%-22s: %-50s\n", "Gioi tinh", (gioiTinh ? "Nam" : "Nu") + ".");
+        System.out.format("%-22s: %-50s\n", "Ngay sinh", ngaySinh.getNgay() + "/" + ngaySinh.getThang() + "/" + ngaySinh.getNam() + ".");
+        System.out.format("%-22s: %-50s\n", "Ngay vao lam", ngayVaoLam.getNgay() + "/" + ngayVaoLam.getThang() + "/" + ngayVaoLam.getNam() + ".");
+        System.out.format("%-22s: %-50s\n", "Tham nien lam viec", thamNienLamViec() + " nam.");
+        System.out.format("%-22s: %-50s\n", "So dien thoai", soDienThoai + ".");
+        System.out.format("%-22s: %-50s\n", "Dia chi", diaChi + ".");
+        System.out.format("%-22s: %-50s\n", "Bac luong hien tai", getBacLuong() + ".");
+        System.out.format("%-22s: %-50s\n", "Xep loai thang nay", xepLoai() + ".");
         System.out.format("%-22s: %-50.3f\n", "Luong thang hien tai", getLuong());
     }
 
