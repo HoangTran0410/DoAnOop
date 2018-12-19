@@ -177,7 +177,7 @@ public class DanhSachPhongBan implements DanhSach, File {
         System.out.println("--------------------------------------------------------------------");
     }
 
-    public int soLuong() {
+    public int getSoLuong() {
         return dspb.length;
     }
 

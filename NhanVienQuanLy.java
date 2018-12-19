@@ -46,11 +46,22 @@ public class NhanVienQuanLy extends NhanVien {
         chucVu = fileIn.readUTF();
         heSoPhuCapChucVu = fileIn.readDouble();
     }
-
+    
     @Override
-    public void nhap() {
-        super.nhapMa();
-        nhapThongTin();
+    public void nhapMa() {
+        Boolean valid;
+        
+        String maNV;
+        do {
+            System.out.print("Ma nhan vien: ql");
+            maNV = scan.nextLine();
+            valid = !CheckValidation.checkTrungMa_NhanVien(maNV);
+            if (!valid) {
+                System.err.println("Ma nhan vien bi trung! Vui long nhap lai.");
+            } else {
+                setMaNhanVien("ql"+maNV);
+            }
+        } while (maNV.trim().equals("") || !valid);
     }
 
     @Override

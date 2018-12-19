@@ -36,7 +36,7 @@ public class DanhSachNhanVien implements DanhSach, File {
                 for (NhanVien nv : dsnv) {
                     nv.ghiFile(fileOut);
                 }
-                System.out.println("THANH CONG.");
+                System.out.println("GHI FILE THANH CONG.");
             }
         } catch (IOException e) {
             System.err.println("Loi khi GHI FILE "+ tenFile +"!");

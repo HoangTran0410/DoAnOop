@@ -60,11 +60,11 @@ public class PhongBan implements NhapXuat {
     }
     
     public void nhapThongTin() {
-        
         do {
             System.out.print("Ten: ");
             tenPhongBan = MyString.toUpperCaseFirstLetter(scan.nextLine());
         } while (tenPhongBan.trim().equals(""));
+        
         do {
             System.out.print("So dien thoai (10 chu so): ");
             sdtPhongBan = scan.nextLine();

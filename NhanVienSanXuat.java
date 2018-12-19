@@ -48,16 +48,27 @@ public class NhanVienSanXuat extends NhanVien {
     }
     
     @Override
+    public void nhapMa() {
+        Boolean valid;
+        
+        String maNV;
+        do {
+            System.out.print("Ma nhan vien: sx");
+            maNV = scan.nextLine();
+            valid = !CheckValidation.checkTrungMa_NhanVien(maNV);
+            if (!valid) {
+                System.err.println("Ma nhan vien bi trung! Vui long nhap lai.");
+            } else {
+                setMaNhanVien("sx"+maNV);
+            }
+        } while (maNV.trim().equals("") || !valid);
+    }
+    
+    @Override
     public void nhapThongTin() {
         super.nhapThongTin();
         System.out.print("So ngay nghi: ");
         soNgayNghi = scan.nextInt();
-    }
-    
-    @Override
-    public void nhap() {
-        super.nhapMa();
-        nhapThongTin();
     }
         
     public void xuatThongTin() {

@@ -50,7 +50,6 @@ public class CheckValidation {
 
     public static Boolean checkTrungMa_NhanVien(String ma) {
         DanhSachNhanVien dsnv = new DanhSachNhanVien();
-        
         dsnv.docFile(Menu.FILE_DANHSACHNHANVIEN);
 
         return dsnv.timKiemTheoMa(ma) != null;

@@ -66,6 +66,23 @@ public class NhanVienKinhDoanh extends NhanVien {
     }
 
     @Override
+    public void nhapMa() {
+        Boolean valid;
+        
+        String maNV;
+        do {
+            System.out.print("Ma nhan vien: kd");
+            maNV = scan.nextLine();
+            valid = !CheckValidation.checkTrungMa_NhanVien(maNV);
+            if (!valid) {
+                System.err.println("Ma nhan vien bi trung! Vui long nhap lai.");
+            } else {
+                setMaNhanVien("kd"+maNV);
+            }
+        } while (maNV.trim().equals("") || !valid);
+    }
+    
+    @Override
     public void nhapThongTin() {
         super.nhapThongTin();
         System.out.print("Doanh so toi thieu: ");
